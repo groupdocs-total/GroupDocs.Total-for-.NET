@@ -1,0 +1,25 @@
+{
+  "name": "groupdocs.total-for-net-mvc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/groupdocs-total/GroupDocs.Total-for-NET-MVC.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/groupdocs-total/GroupDocs.Total-for-NET-MVC/issues"
+  },
+  "homepage": "https://github.com/groupdocs-total/GroupDocs.Total-for-NET-MVC#readme",
+  "dependencies": {
+    "@groupdocs.examples.jquery/total": "^0.16.0"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
+}

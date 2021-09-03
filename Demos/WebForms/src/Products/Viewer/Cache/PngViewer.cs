@@ -13,6 +13,7 @@ namespace GroupDocs.Total.WebForms.Products.Viewer.Cache
 
         private readonly GroupDocs.Viewer.Viewer viewer;
         private readonly PngViewOptions pngViewOptions;
+        private readonly PdfViewOptions pdfViewOptions;
         private readonly ViewInfoOptions viewInfoOptions;
         private static readonly Common.Config.GlobalConfiguration globalConfiguration = new Common.Config.GlobalConfiguration();
 
@@ -22,6 +23,7 @@ namespace GroupDocs.Total.WebForms.Products.Viewer.Cache
             this.filePath = filePath;
             this.viewer = new GroupDocs.Viewer.Viewer(filePath, loadOptions);
             this.pngViewOptions = this.CreatePngViewOptions(pageNumber, newAngle);
+            this.pdfViewOptions = this.CreatePdfViewOptions();
             this.viewInfoOptions = ViewInfoOptions.FromPngViewOptions(this.pngViewOptions);
         }
 
@@ -32,7 +34,7 @@ namespace GroupDocs.Total.WebForms.Products.Viewer.Cache
 
         private PngViewOptions CreatePngViewOptions(int passedPageNumber = -1, int newAngle = 0)
         {
-            PngViewOptions createdPngViewOptions = new PngViewOptions(pageNumber =>
+            PngViewOptions pngViewOptions = new PngViewOptions(pageNumber =>
             {
                 string fileName = $"p{pageNumber}.png";
                 string cacheFilePath = this.cache.GetCacheFilePath(fileName);
@@ -43,14 +45,32 @@ namespace GroupDocs.Total.WebForms.Products.Viewer.Cache
             if (passedPageNumber >= 0 && newAngle != 0)
             {
                 Rotation rotationAngle = GetRotationByAngle(newAngle);
-                createdPngViewOptions.RotatePage(passedPageNumber, rotationAngle);
+                pngViewOptions.RotatePage(passedPageNumber, rotationAngle);
             }
 
-            createdPngViewOptions.SpreadsheetOptions.RenderHeadings = true;
+            pngViewOptions.SpreadsheetOptions.RenderHeadings = true;
 
-            SetWatermarkOptions(createdPngViewOptions);
+            SetWatermarkOptions(pngViewOptions);
 
-            return createdPngViewOptions;
+            return pngViewOptions;
+        }
+
+        private PdfViewOptions CreatePdfViewOptions()
+        {
+            PdfViewOptions pdfViewOptions = new PdfViewOptions(
+                () =>
+                {
+                    string fileName = "f.pdf";
+                    string cacheFilePath = this.cache.GetCacheFilePath(fileName);
+
+                    return File.Create(cacheFilePath);
+                });
+
+            pdfViewOptions.SpreadsheetOptions.RenderHeadings = true;
+
+            SetWatermarkOptions(pdfViewOptions);
+
+            return pdfViewOptions;
         }
 
         /// <summary>
@@ -73,25 +93,6 @@ namespace GroupDocs.Total.WebForms.Products.Viewer.Cache
             }
         }
 
-        public GroupDocs.Viewer.Results.FileInfo GetFileInfo()
-        {
-            string cacheKey = "file_info.dat";
-
-            GroupDocs.Viewer.Results.FileInfo viewInfo = this.cache.GetValue(cacheKey, () => this.ReadFileInfo());
-
-            return viewInfo;
-        }
-
-        public System.IO.FileInfo GetPageFile(int pageNumber)
-        {
-            this.CreateCache();
-
-            string pageKey = $"p{pageNumber}.png";
-            string cacheFilePath = this.cache.GetCacheFilePath(pageKey);
-
-            return new System.IO.FileInfo(cacheFilePath);
-        }
-
         public void CreateCache()
         {
             ViewInfo viewInfo = this.GetViewInfo();
@@ -105,6 +106,24 @@ namespace GroupDocs.Total.WebForms.Products.Viewer.Cache
                     this.viewer.View(this.pngViewOptions, missingPages);
                 }
             }
+        }
+
+        public Stream GetPdf()
+        {
+            string cacheKey = "f.pdf";
+
+            if (!this.cache.Contains(cacheKey))
+            {
+                using (new CrossProcessLock(this.filePath))
+                {
+                    if (!this.cache.Contains(cacheKey))
+                    {
+                        this.viewer.View(this.pdfViewOptions);
+                    }
+                }
+            }
+
+            return this.cache.GetValue<Stream>(cacheKey);
         }
 
         public void Dispose()
@@ -133,15 +152,6 @@ namespace GroupDocs.Total.WebForms.Products.Viewer.Cache
             if (watermark != null)
             {
                 options.Watermark = watermark;
-            }
-        }
-
-        private GroupDocs.Viewer.Results.FileInfo ReadFileInfo()
-        {
-            using (new CrossProcessLock(this.filePath))
-            {
-                GroupDocs.Viewer.Results.FileInfo fileInfo = this.viewer.GetFileInfo();
-                return fileInfo;
             }
         }
 

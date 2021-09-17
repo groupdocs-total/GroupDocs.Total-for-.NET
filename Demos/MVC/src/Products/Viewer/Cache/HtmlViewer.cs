@@ -156,12 +156,12 @@ namespace GroupDocs.Total.MVC.Products.Viewer.Cache
         /// <param name="options">View options.</param>
         private static void SetWatermarkOptions(ViewOptions options)
         {
-            Watermark watermark = null;
+            GroupDocs.Viewer.Options.Watermark watermark = null;
 
             if (!string.IsNullOrEmpty(globalConfiguration.GetViewerConfiguration().GetWatermarkText()))
             {
                 // Set watermark properties
-                watermark = new Watermark(globalConfiguration.GetViewerConfiguration().GetWatermarkText())
+                watermark = new GroupDocs.Viewer.Options.Watermark(globalConfiguration.GetViewerConfiguration().GetWatermarkText())
                 {
                     Color = System.Drawing.Color.Blue,
                     Position = Position.Diagonal,

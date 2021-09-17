@@ -44,29 +44,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GroupDocs.Annotation, Version=21.2.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <HintPath>..\packages\GroupDocs.Annotation.21.2.0\lib\net20\GroupDocs.Annotation.dll</HintPath>
-    </Reference>
     <Reference Include="GroupDocs.Comparison, Version=21.8.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <HintPath>..\packages\GroupDocs.Comparison.21.8.0\lib\net20\GroupDocs.Comparison.dll</HintPath>
     </Reference>
-    <Reference Include="GroupDocs.Conversion, Version=21.2.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <HintPath>..\packages\GroupDocs.Conversion.21.2.0\lib\net20\GroupDocs.Conversion.dll</HintPath>
-    </Reference>
-    <Reference Include="GroupDocs.Editor, Version=21.1.1.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <HintPath>..\packages\GroupDocs.Editor.21.1.1\lib\net20\GroupDocs.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="GroupDocs.Metadata, Version=21.2.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <HintPath>..\packages\GroupDocs.Metadata.21.2.0\lib\net20\GroupDocs.Metadata.dll</HintPath>
-    </Reference>
-    <Reference Include="GroupDocs.Search, Version=21.2.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <HintPath>..\packages\GroupDocs.Search.21.2.0\lib\net20\GroupDocs.Search.dll</HintPath>
-    </Reference>
-    <Reference Include="GroupDocs.Signature, Version=21.1.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <HintPath>..\packages\GroupDocs.Signature.21.1.0\lib\net20\GroupDocs.Signature.dll</HintPath>
-    </Reference>
-    <Reference Include="GroupDocs.Viewer, Version=21.2.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <HintPath>..\packages\GroupDocs.Viewer.21.2.0\lib\net20\GroupDocs.Viewer.dll</HintPath>
+    <Reference Include="GroupDocs.Total, Version=21.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GroupDocs.Total.21.9.0\lib\net20\GroupDocs.Total.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -179,10 +161,10 @@
     <Compile Include="Comparison.aspx.designer.cs">
       <DependentUpon>Comparison.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AppDomainGenerator\DomainGenerator.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Products\Annotation\Annotator\TextHighlightAnnotator.cs" />
+    <Compile Include="Products\Common\Licensing\TotalLicenser.cs" />
     <Compile Include="Products\Metadata\Context\MetadataContext.cs" />
     <Compile Include="Products\Metadata\Context\MetadataPathConfig.cs" />
     <Compile Include="Products\Metadata\Context\NestedPackageInfo.cs" />
@@ -429,6 +411,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\GroupDocs.Total.21.9.0\build\net20\GroupDocs.Total.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GroupDocs.Total.21.9.0\build\net20\GroupDocs.Total.targets'))" />
   </Target>
   <Target Name="BeforeBuild" DependsOnTargets="PrepareForBuild">
     <Exec Command="..\packages\Node-Kit.11.1.0.1\node\win\node.exe ..\packages\Node-Kit.11.1.0.1\npm\bin\npm-cli.js install" Condition=" '$(OS)' == 'Windows_NT' " />
@@ -446,4 +429,5 @@
     <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
     <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
   </Target>
+  <Import Project="..\packages\GroupDocs.Total.21.9.0\build\net20\GroupDocs.Total.targets" Condition="Exists('..\packages\GroupDocs.Total.21.9.0\build\net20\GroupDocs.Total.targets')" />
 </Project>

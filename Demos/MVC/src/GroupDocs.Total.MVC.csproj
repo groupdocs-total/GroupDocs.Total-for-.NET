@@ -307,6 +307,15 @@
     <Compile Include="Products\Metadata\Services\MetadataService.cs" />
     <Compile Include="Products\Metadata\Util\ArrayUtil.cs" />
     <Compile Include="Products\Metadata\Util\DirectoryUtils.cs" />
+    <Compile Include="Products\Parser\Config\ParserConfiguration.cs" />
+    <Compile Include="Products\Parser\Controllers\ParserApiController.cs" />
+    <Compile Include="Products\Parser\Entity\FileDataEntity.cs" />
+    <Compile Include="Products\Parser\Entity\ParsePostedDataEntity.cs" />
+    <Compile Include="Products\Parser\Entity\TemplateFieldEntity.cs" />
+    <Compile Include="Products\Parser\Entity\TemplateFieldValueEntity.cs" />
+    <Compile Include="Products\Parser\Services\FileService.cs" />
+    <Compile Include="Products\Parser\Services\ParserService.cs" />
+    <Compile Include="Products\Parser\Services\PreviewService.cs" />
     <Compile Include="Products\Search\Config\SearchConfiguration.cs" />
     <Compile Include="Products\Search\Controllers\SearchApiController.cs" />
     <Compile Include="Products\Search\Entity\Web\IndexedFileDescriptionEntity.cs" />

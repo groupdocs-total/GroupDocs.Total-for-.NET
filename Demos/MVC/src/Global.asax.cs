@@ -10,6 +10,7 @@ namespace GroupDocs.Total.MVC
         {
             Products.Common.Licensing.GroupDocsTotalLicenser.SetLicense();
             AreaRegistration.RegisterAllAreas();
+            GroupDocs.Total.MVC.UnityConfig.RegisterComponents();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

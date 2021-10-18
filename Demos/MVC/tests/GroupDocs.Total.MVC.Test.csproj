@@ -234,7 +234,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\GroupDocs.Total.MVC.csproj">
+    <ProjectReference Include="..\src\GroupDocs.Total.MVC.csproj">
       <Project>{a33ca8b0-a193-40a3-a86a-90ff444ee878}</Project>
       <Name>GroupDocs.Total.MVC</Name>
     </ProjectReference>

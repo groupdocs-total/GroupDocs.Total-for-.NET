@@ -45,12 +45,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aspose.HTML, Version=21.3.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aspose.HTML.21.3.0\lib\net40\Aspose.HTML.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="GroupDocs.Total, Version=21.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GroupDocs.Total.21.9.0\lib\net20\GroupDocs.Total.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -313,11 +317,104 @@
     <Compile Include="Products\Metadata\Util\DirectoryUtils.cs" />
     <Compile Include="Products\Search\Config\SearchConfiguration.cs" />
     <Compile Include="Products\Search\Controllers\SearchApiController.cs" />
-    <Compile Include="Products\Search\Entity\Web\IndexedFileDescriptionEntity.cs" />
-    <Compile Include="Products\Search\Entity\Web\Request\SearchPostedData.cs" />
-    <Compile Include="Products\Search\Entity\Web\Response\SearchDocumentResult.cs" />
-    <Compile Include="Products\Search\Entity\Web\Response\SummarySearchResult.cs" />
-    <Compile Include="Products\Search\Service\SearchService.cs" />
+    <Compile Include="Products\Search\Domain\DemoException.cs" />
+    <Compile Include="Products\Search\Domain\FormFile.cs" />
+    <Compile Include="Products\Search\Domain\Highlighter\CharacterHolder.cs" />
+    <Compile Include="Products\Search\Domain\Highlighter\FoundWord.cs" />
+    <Compile Include="Products\Search\Domain\Highlighter\HtmlHighlighterNew.cs" />
+    <Compile Include="Products\Search\Domain\Highlighter\IFinder.cs" />
+    <Compile Include="Products\Search\Domain\Highlighter\ISuperFinder.cs" />
+    <Compile Include="Products\Search\Domain\Highlighter\PhraseAnyWordFinder.cs" />
+    <Compile Include="Products\Search\Domain\Highlighter\PhraseFirstWordFinder.cs" />
+    <Compile Include="Products\Search\Domain\Highlighter\PhraseNextWordFinder.cs" />
+    <Compile Include="Products\Search\Domain\Highlighter\SeparateWordFinder.cs" />
+    <Compile Include="Products\Search\Domain\Highlighter\SuperFinder.cs" />
+    <Compile Include="Products\Search\Domain\Highlighter\TextSource.cs" />
+    <Compile Include="Products\Search\Domain\Highlighter\WordFinder.cs" />
+    <Compile Include="Products\Search\Domain\IFormFile.cs" />
+    <Compile Include="Products\Search\Domain\ILogger.cs" />
+    <Compile Include="Products\Search\Domain\ISearchService.cs" />
+    <Compile Include="Products\Search\Domain\Ocr\AsposeCloudOcrConnector.cs" />
+    <Compile Include="Products\Search\Domain\Ocr\TesseractOcrConnector.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\AddIndexTask.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\CleanupIndexTask.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\CleanupSchedulerService.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\DeleteIndexTask.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\DemoValidatingService.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\DictionaryStorageService.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\DocumentDescriptor.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\DocumentKey.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\DocumentLoader.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\DocumentSerializer.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\DocumentStatus.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\DocumentStatusService.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\DocumentWithStatus.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\IndexFactoryService.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\IndexTask.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\IndexTaskLogger.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\OcrImageCounter.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\PreprocessingQueue.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\ReindexingService.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\ResourcePathConverter.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\Settings.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\SingleIndexService.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\StorageService.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\TaskQueueService.cs" />
+    <Compile Include="Products\Search\Domain\SingleIndex\UserFolder.cs" />
+    <Compile Include="Products\Search\Domain\UploadDocumentContext.cs" />
+    <Compile Include="Products\Search\Domain\ViewerCache\CacheGenerator.cs" />
+    <Compile Include="Products\Search\Domain\ViewerCache\DocumentCache.cs" />
+    <Compile Include="Products\Search\Domain\ViewerCache\HtmlCacheService.cs" />
+    <Compile Include="Products\Search\Domain\ViewerCache\HtmlViewer.cs" />
+    <Compile Include="Products\Search\Domain\ViewerCache\PageGate.cs" />
+    <Compile Include="Products\Search\Domain\ViewerCache\PageInfo.cs" />
+    <Compile Include="Products\Search\Domain\ViewerCache\UserFileInfo.cs" />
+    <Compile Include="Products\Search\Dto\AlphabetCharacter.cs" />
+    <Compile Include="Products\Search\Dto\CommonConfiguration.cs" />
+    <Compile Include="Products\Search\Dto\ExceptionEntity.cs" />
+    <Compile Include="Products\Search\Dto\FileDescriptionEntity.cs" />
+    <Compile Include="Products\Search\Dto\IndexedFileDescriptionEntity.cs" />
+    <Compile Include="Products\Search\Dto\Info\ExistingDocumentInfo.cs" />
+    <Compile Include="Products\Search\Dto\Info\ExistingFolderInfo.cs" />
+    <Compile Include="Products\Search\Dto\Info\IndexStatusInfo.cs" />
+    <Compile Include="Products\Search\Dto\Info\PreprocessingQueueInfo.cs" />
+    <Compile Include="Products\Search\Dto\Info\SearchAppInfo.cs" />
+    <Compile Include="Products\Search\Dto\Info\TaskQueueInfo.cs" />
+    <Compile Include="Products\Search\Dto\KeyPasswordPair.cs" />
+    <Compile Include="Products\Search\Dto\PostedDataEntity.cs" />
+    <Compile Include="Products\Search\Dto\Request\AddToIndexRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\AlphabetUpdateRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\CharacterReplacementsUpdateRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\DocumentPasswordsUpdateRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\FilesDeleteRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\FileStatusGetRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\GetDocumentPageRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\HighlightRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\HighlightTermsRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\HomophonesUpdateRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\PrepareDocumentRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\SearchBaseRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\SearchPostedData.cs" />
+    <Compile Include="Products\Search\Dto\Request\SpellingCorrectorUpdateRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\StopWordsUpdateRequest.cs" />
+    <Compile Include="Products\Search\Dto\Request\SynonymsUpdateRequest.cs" />
+    <Compile Include="Products\Search\Dto\Response\AlphabetReadResponse.cs" />
+    <Compile Include="Products\Search\Dto\Response\CharacterReplacementsReadResponse.cs" />
+    <Compile Include="Products\Search\Dto\Response\DocumentPasswordsReadResponse.cs" />
+    <Compile Include="Products\Search\Dto\Response\GetDocumentPageResponse.cs" />
+    <Compile Include="Products\Search\Dto\Response\GetStatusResponse.cs" />
+    <Compile Include="Products\Search\Dto\Response\HighlightTermsResponse.cs" />
+    <Compile Include="Products\Search\Dto\Response\HomophonesReadResponse.cs" />
+    <Compile Include="Products\Search\Dto\Response\IndexPropertiesResponse.cs" />
+    <Compile Include="Products\Search\Dto\Response\LicenseRestrictionResponse.cs" />
+    <Compile Include="Products\Search\Dto\Response\PrepareDocumentResponse.cs" />
+    <Compile Include="Products\Search\Dto\Response\SearchDocumentResult.cs" />
+    <Compile Include="Products\Search\Dto\Response\SpellingCorrectorReadResponse.cs" />
+    <Compile Include="Products\Search\Dto\Response\StopWordsReadResponse.cs" />
+    <Compile Include="Products\Search\Dto\Response\SummarySearchResult.cs" />
+    <Compile Include="Products\Search\Dto\Response\SynonymsReadResponse.cs" />
+    <Compile Include="Products\Search\Dto\SearchConfiguration.cs" />
+    <Compile Include="Products\Search\Dto\UploadedDocumentEntity.cs" />
     <Compile Include="Products\Search\Util\Directory\DirectoryUtils.cs" />
     <Compile Include="Products\Signature\Controllers\SignatureApiController.cs" />
     <Compile Include="Products\Signature\Config\SignatureConfiguration.cs" />

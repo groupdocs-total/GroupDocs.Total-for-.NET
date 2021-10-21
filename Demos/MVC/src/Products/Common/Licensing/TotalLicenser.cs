@@ -21,6 +21,7 @@
                 new GroupDocs.Editor.License().SetLicense(licensePath);
                 new GroupDocs.Metadata.License().SetLicense(licensePath);
                 new GroupDocs.Search.License().SetLicense(licensePath);
+                new Aspose.Html.License().SetLicense(licensePath);
             }
         }
     }

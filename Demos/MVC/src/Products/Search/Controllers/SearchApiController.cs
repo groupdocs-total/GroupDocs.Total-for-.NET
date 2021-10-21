@@ -1,251 +1,189 @@
-﻿using System;
+﻿using GroupDocs.Total.MVC.Products.Common.Entity.Web;
+using GroupDocs.Total.MVC.Products.Common.Resources;
+using GroupDocs.Total.MVC.Products.Search.Domain;
+using GroupDocs.Total.MVC.Products.Search.Dto;
+using GroupDocs.Total.MVC.Products.Search.Dto.Request;
+using GroupDocs.Total.MVC.Products.Search.Dto.Response;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using GroupDocs.Total.MVC.Products.Common.Entity.Web;
-using GroupDocs.Total.MVC.Products.Common.Resources;
-using GroupDocs.Total.MVC.Products.Common.Util.Comparator;
-using GroupDocs.Total.MVC.Products.Search.Config;
-using GroupDocs.Total.MVC.Products.Search.Entity.Web;
-using GroupDocs.Total.MVC.Products.Search.Entity.Web.Request;
-using GroupDocs.Total.MVC.Products.Search.Service;
 
 namespace GroupDocs.Total.MVC.Products.Search.Controllers
 {
-    /// <summary>
-    /// SearchApiController.
-    /// </summary>
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class SearchApiController : ApiController
     {
-        private readonly Common.Config.GlobalConfiguration globalConfiguration;
+        private readonly ILogger _logger;
+        private readonly ISearchService _searchService;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SearchApiController"/> class.
-        /// Constructor.
-        /// </summary>
-        public SearchApiController()
+        public SearchApiController(
+            ILogger logger,
+            ISearchService searchService)
         {
-            this.globalConfiguration = new Common.Config.GlobalConfiguration();
+            _logger = logger;
+            _searchService = searchService;
         }
 
-        /// <summary>
-        /// Load Search configuration.
-        /// </summary>
-        /// <returns>Search configuration.</returns>
         [HttpGet]
         [Route("search/loadConfig")]
         public SearchConfiguration LoadConfig()
         {
-            SearchService.InitIndex(this.globalConfiguration);
-
-            return this.globalConfiguration.GetSearchConfiguration();
+            var configuration = _searchService.GetConfiguration();
+            return configuration;
         }
 
-        /// <summary>
-        /// Gets all files and directories from storage.
-        /// </summary>
-        /// <param name="fileTreeRequest">Posted data with path.</param>
-        /// <returns>List of files and directories.</returns>
         [HttpPost]
-        [Route("search/loadFileTree")]
-        public HttpResponseMessage LoadFileTree(PostedDataEntity fileTreeRequest)
+        [Route("search/getUploadedFiles")]
+        public async Task<IndexedFileDescriptionEntity[]> GetUploadedFiles(SearchBaseRequest request)
         {
-            try
-            {
-                List<IndexedFileDescriptionEntity> filesList = new List<IndexedFileDescriptionEntity>();
-
-                string filesDirectory = string.IsNullOrEmpty(fileTreeRequest.path) ?
-                                        this.globalConfiguration.GetSearchConfiguration().GetFilesDirectory() :
-                                        fileTreeRequest.path;
-
-                if (!string.IsNullOrEmpty(this.globalConfiguration.GetSearchConfiguration().GetFilesDirectory()))
-                {
-                    filesList = this.LoadFiles(filesDirectory);
-                }
-
-                return this.Request.CreateResponse(HttpStatusCode.OK, filesList);
-            }
-            catch (Exception ex)
-            {
-                return this.Request.CreateResponse(HttpStatusCode.OK, new Resources().GenerateException(ex));
-            }
+            var indexedFiles = await _searchService.GetUploadedFiles(request);
+            return indexedFiles;
         }
 
-        /// <summary>
-        /// Loads documents.
-        /// </summary>
-        /// <param name="filesDirectory">Files directory.</param>
-        /// <returns>List of documents.</returns>
-        public List<IndexedFileDescriptionEntity> LoadFiles(string filesDirectory)
+        [HttpPost]
+        [Route("search/getIndexedFiles")]
+        public IndexedFileDescriptionEntity[] GetIndexedFiles(SearchBaseRequest request)
         {
-            List<string> allFiles = new List<string>(Directory.GetFiles(filesDirectory));
-            allFiles.AddRange(Directory.GetDirectories(filesDirectory));
-            List<IndexedFileDescriptionEntity> fileList = new List<IndexedFileDescriptionEntity>();
-
-            allFiles.Sort(new FileNameComparator());
-            allFiles.Sort(new FileDateComparator());
-
-            foreach (string file in allFiles)
-            {
-                FileInfo fileInfo = new FileInfo(file);
-
-                if (!(Path.GetFileName(file).StartsWith(".") ||
-                      fileInfo.Attributes.HasFlag(FileAttributes.Hidden) ||
-                      Path.GetFileName(file).Equals(Path.GetFileName(this.globalConfiguration.GetSearchConfiguration().GetFilesDirectory())) ||
-                      Path.GetFileName(file).Equals(Path.GetFileName(this.globalConfiguration.GetSearchConfiguration().GetIndexDirectory())) ||
-                      Path.GetFileName(file).Equals(Path.GetFileName(this.globalConfiguration.GetSearchConfiguration().GetIndexedFilesDirectory()))))
-                {
-                    IndexedFileDescriptionEntity fileDescription = new IndexedFileDescriptionEntity
-                    {
-                        guid = Path.GetFullPath(file),
-                        name = Path.GetFileName(file),
-
-                        // set is directory true/false
-                        isDirectory = fileInfo.Attributes.HasFlag(FileAttributes.Directory),
-                    };
-
-                    // set file size
-                    if (!fileDescription.isDirectory)
-                    {
-                        fileDescription.size = fileInfo.Length;
-                    }
-
-                    if (filesDirectory.Contains(this.globalConfiguration.GetSearchConfiguration().GetIndexedFilesDirectory()))
-                    {
-                        string value;
-                        if (SearchService.FileIndexingStatusDict.TryGetValue(fileDescription.guid, out value))
-                        {
-                            fileDescription.documentStatus = value;
-                        }
-                        else
-                        {
-                            fileDescription.documentStatus = "Indexing";
-                        }
-                    }
-
-                    fileList.Add(fileDescription);
-                }
-            }
-
-            return fileList;
+            var indexedFiles = _searchService.GetIndexedFiles(request);
+            return indexedFiles;
         }
 
-        /// <summary>
-        /// Uploads document.
-        /// </summary>
-        /// <returns>Uploaded document object.</returns>
         [HttpPost]
         [Route("search/uploadDocument")]
-        public HttpResponseMessage UploadDocument()
+        public async Task<HttpResponseMessage> UploadDocumentAsync()
         {
             try
             {
                 string url = HttpContext.Current.Request.Form["url"];
-
-                // get documents storage path
-                string documentStoragePath = this.globalConfiguration.GetSearchConfiguration().GetFilesDirectory();
-                bool rewrite = bool.Parse(HttpContext.Current.Request.Form["rewrite"]);
-                string fileSavePath = string.Empty;
-                if (string.IsNullOrEmpty(url))
-                {
-                    if (HttpContext.Current.Request.Files.AllKeys != null)
-                    {
-                        // Get the uploaded document from the Files collection
-                        var httpPostedFile = HttpContext.Current.Request.Files["file"];
-                        if (httpPostedFile != null)
-                        {
-                            if (rewrite)
-                            {
-                                // Get the complete file path
-                                fileSavePath = Path.Combine(documentStoragePath, httpPostedFile.FileName);
-                            }
-                            else
-                            {
-                                fileSavePath = Resources.GetFreeFileName(documentStoragePath, httpPostedFile.FileName);
-                            }
-
-                            // Save the uploaded file to "UploadedFiles" folder
-                            httpPostedFile.SaveAs(fileSavePath);
-                        }
-                    }
-                }
-                else
-                {
-                    using (WebClient client = new WebClient())
-                    {
-                        // get file name from the URL
-                        Uri uri = new Uri(url);
-                        string fileName = Path.GetFileName(uri.LocalPath);
-                        if (rewrite)
-                        {
-                            // Get the complete file path
-                            fileSavePath = Path.Combine(documentStoragePath, fileName);
-                        }
-                        else
-                        {
-                            fileSavePath = Resources.GetFreeFileName(documentStoragePath, fileName);
-                        }
-
-                        // Download the Web resource and save it into the current filesystem folder.
-                        client.DownloadFile(url, fileSavePath);
-                    }
-                }
-
-                UploadedDocumentEntity uploadedDocument = new UploadedDocumentEntity
-                {
-                    guid = fileSavePath,
-                };
-
+                string folderName = HttpContext.Current.Request.Form["folderName"];
+                string indexAfterUploadString = HttpContext.Current.Request.Form["indexAfterUpload"];
+                string recognizeTextInImagesString = HttpContext.Current.Request.Form["recognizeTextInImages"];
+                bool indexAfterUpload = string.Equals(indexAfterUploadString, "true", StringComparison.OrdinalIgnoreCase);
+                bool recognizeTextInImages = string.Equals(recognizeTextInImagesString, "true", StringComparison.OrdinalIgnoreCase);
+                var httpPostedFile = HttpContext.Current.Request.Files["file"];
+                IFormFile file = new FormFile(httpPostedFile);
+                var context = new UploadDocumentContext(file, url, folderName, indexAfterUpload, recognizeTextInImages);
+                var uploadedDocument = await _searchService.UploadDocumentAsync(context);
                 return this.Request.CreateResponse(HttpStatusCode.OK, uploadedDocument);
+            }
+            catch (DemoException ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.OK, LicenseRestrictionResponse.CreateRestricted(ex.Message));
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Upload document error.");
                 return this.Request.CreateResponse(HttpStatusCode.InternalServerError, new Resources().GenerateException(ex));
             }
         }
 
-        /// <summary>
-        /// Adds files to index.
-        /// </summary>
-        /// <param name="postedData">Files array.</param>
-        /// <returns>HttpResponseMessage.</returns>
         [HttpPost]
-        [Route("search/addFilesToIndex")]
-        public HttpResponseMessage AddFilesToIndex(PostedDataEntity[] postedData)
+        [Route("search/deleteFiles")]
+        public HttpResponseMessage DeleteFiles(FilesDeleteRequest request)
         {
             try
             {
-                SearchService.AddFilesToIndex(postedData, this.globalConfiguration);
+                _searchService.DeleteFiles(request);
                 return this.Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Delete files error.");
                 return this.Request.CreateResponse(HttpStatusCode.InternalServerError, new Resources().GenerateException(ex));
             }
         }
 
-        /// <summary>
-        /// Performs search.
-        /// </summary>
-        /// <param name="postedData">Search query.</param>
-        /// <returns>Search results.</returns>
+        [HttpPost]
+        [Route("search/addFilesToIndex")]
+        public async Task<HttpResponseMessage> AddFilesToIndexAsync(AddToIndexRequest request)
+        {
+            try
+            {
+                await _searchService.AddFilesToIndexAsync(request);
+                return this.Request.CreateResponse(HttpStatusCode.OK, LicenseRestrictionResponse.CreateNonRestricted());
+            }
+            catch (DemoException ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.OK, LicenseRestrictionResponse.CreateRestricted(ex.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Add files to index error.");
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, new Resources().GenerateException(ex));
+            }
+        }
+
+        [HttpPost]
+        [Route("search/downloadAndAddToIndex")]
+        public async Task<HttpResponseMessage> DownloadAndAddToIndexAsync(AddToIndexRequest request)
+        {
+            try
+            {
+                await _searchService.DownloadAndAddToIndexAsync(request);
+                return this.Request.CreateResponse(HttpStatusCode.OK, LicenseRestrictionResponse.CreateNonRestricted());
+            }
+            catch (DemoException ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.OK, LicenseRestrictionResponse.CreateRestricted(ex.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Download and add to index error.");
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, new Resources().GenerateException(ex));
+            }
+        }
+
         [HttpPost]
         [Route("search/search")]
         public HttpResponseMessage Search(SearchPostedData postedData)
         {
             try
             {
-                var result = SearchService.Search(postedData, this.globalConfiguration);
+                var result = _searchService.Search(postedData);
                 return this.Request.CreateResponse(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
                 return this.Request.CreateResponse(HttpStatusCode.InternalServerError, new Resources().GenerateException(ex));
+            }
+        }
+
+        [HttpPost]
+        [Route("search/highlight")]
+        public HttpResponseMessage Highlight(HighlightRequest request)
+        {
+            try
+            {
+                var result = _searchService.Highlight(request);
+                return this.Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Highlight error.");
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, new Resources().GenerateException(ex));
+            }
+        }
+
+        [HttpPost]
+        [Route("search/downloadSourceFile")]
+        public HttpResponseMessage DownloadSourceFile(HighlightRequest request)
+        {
+            try
+            {
+                var stream = _searchService.GetSourceFile(request, out string fileName);
+                var contentType = "application/octet-stream";
+                return File(stream, contentType, fileName);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Download source file error.");
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 

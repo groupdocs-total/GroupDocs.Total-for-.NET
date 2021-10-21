@@ -3,6 +3,7 @@ using GroupDocs.Total.WebForms.Products.Comparison.Config;
 using GroupDocs.Total.WebForms.Products.Conversion.Config;
 using GroupDocs.Total.WebForms.Products.Editor.Config;
 using GroupDocs.Total.WebForms.Products.Metadata.Config;
+using GroupDocs.Total.WebForms.Products.Parser.Config;
 using GroupDocs.Total.WebForms.Products.Search.Config;
 using GroupDocs.Total.WebForms.Products.Signature.Config;
 using GroupDocs.Total.WebForms.Products.Viewer.Config;
@@ -25,6 +26,7 @@ namespace GroupDocs.Total.WebForms.Products.Common.Config
         private readonly EditorConfiguration editor;
         private readonly MetadataConfiguration metadata;
         private readonly SearchConfiguration search;
+        private readonly ParserConfiguration parser;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GlobalConfiguration"/> class.
@@ -43,6 +45,7 @@ namespace GroupDocs.Total.WebForms.Products.Common.Config
             this.editor = new EditorConfiguration();
             this.metadata = new MetadataConfiguration();
             this.search = new SearchConfiguration();
+            this.parser = new ParserConfiguration();
         }
 
         public EditorConfiguration GetEditorConfiguration()
@@ -98,6 +101,11 @@ namespace GroupDocs.Total.WebForms.Products.Common.Config
         public SearchConfiguration GetSearchConfiguration()
         {
             return this.search;
+        }
+
+        public ParserConfiguration GetParserConfiguration()
+        {
+            return this.parser;
         }
     }
 }

@@ -44,7 +44,19 @@ namespace GroupDocs.Total.MVC.Products.Parser.Services
 
         private GroupDocs.Parser.Parser CreateParser(PostedDataEntity entity)
         {
-            return new GroupDocs.Parser.Parser(fileService.GetSourceFileStream(entity.guid));
+            var parser = default(GroupDocs.Parser.Parser);
+            if (!string.IsNullOrEmpty(entity.password))
+            {
+                parser = new GroupDocs.Parser.Parser(
+                    fileService.GetSourceFileStream(entity.guid),
+                    new GroupDocs.Parser.Options.LoadOptions(entity.password));
+            }
+            else
+            {
+                parser = new GroupDocs.Parser.Parser(fileService.GetSourceFileStream(entity.guid));
+            }
+
+            return parser;
         }
 
         private static object GetFieldValue(FieldData fieldData)

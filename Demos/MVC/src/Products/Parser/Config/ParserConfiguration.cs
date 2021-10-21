@@ -8,7 +8,7 @@ using GroupDocs.Total.MVC.Products.Common.Util.Parser;
 
 namespace GroupDocs.Total.MVC.Products.Parser.Config
 {
-    public class ParserConfiguration
+    public class ParserConfiguration : CommonConfiguration
     {
         private string filesDirectory = "DocumentSamples/Parser";
         private readonly string outputDirectory = "DocumentSamples/Parser/Output";

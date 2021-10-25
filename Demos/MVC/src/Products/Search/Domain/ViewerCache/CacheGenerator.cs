@@ -69,7 +69,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.ViewerCache
                 bool isActive = true;
                 while (isActive)
                 {
-                    bool isAllDone = GetNextPage(out PageOrderInfo orderInfo);
+                    PageOrderInfo orderInfo;
+                    bool isAllDone = GetNextPage(out orderInfo);
 
                     if (isAllDone)
                     {
@@ -102,7 +103,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.ViewerCache
         {
             lock (_requestedPagesSync)
             {
-                if (_dictionary.TryGetValue(pageNumber, out PageOrderInfo orderInfo))
+                PageOrderInfo orderInfo;
+                if (_dictionary.TryGetValue(pageNumber, out orderInfo))
                 {
                     _requestedPages.Enqueue(orderInfo);
                 }

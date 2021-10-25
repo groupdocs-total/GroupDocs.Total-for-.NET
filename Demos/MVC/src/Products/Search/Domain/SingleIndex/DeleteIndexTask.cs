@@ -1,5 +1,4 @@
 ﻿using GroupDocs.Search.Options;
-using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Linq;
 using Index = GroupDocs.Search.Index;

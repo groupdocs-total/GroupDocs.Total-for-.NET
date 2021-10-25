@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Text;
 
 namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
@@ -16,27 +15,28 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         public string Logs => _logs.ToString();
 
-        public IDisposable BeginScope<TState>(TState state)
-        {
-            return _logger.BeginScope(state);
-        }
-
-        public bool IsEnabled(LogLevel logLevel)
-        {
-            return _logger.IsEnabled(logLevel);
-        }
-
-        public void Log<TState>(
-            LogLevel logLevel,
-            EventId eventId,
-            TState state,
-            Exception exception,
-            Func<TState, Exception, string> formatter)
+        public void LogError(Exception exception, string message)
         {
             var time = DateTime.Now.ToString("s");
-            var message = formatter(state, exception);
+            _logs.AppendLine(time + ": " + message + ": " + exception.ToString());
+
+            _logger.LogError(exception, message);
+        }
+
+        public void LogError(string message)
+        {
+            var time = DateTime.Now.ToString("s");
             _logs.AppendLine(time + ": " + message);
-            _logger.Log(logLevel, eventId, state, exception, formatter);
+
+            _logger.LogError(message);
+        }
+
+        public void LogInformation(string message)
+        {
+            var time = DateTime.Now.ToString("s");
+            _logs.AppendLine(time + ": " + message);
+
+            _logger.LogInformation(message);
         }
     }
 }

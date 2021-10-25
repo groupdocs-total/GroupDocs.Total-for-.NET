@@ -1,5 +1,4 @@
-﻿using GroupDocs.Total.MVC.Products.Search.Utils;
-using System;
+﻿using System;
 using System.Text;
 
 namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex

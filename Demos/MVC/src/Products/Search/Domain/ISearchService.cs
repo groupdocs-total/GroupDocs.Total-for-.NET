@@ -41,8 +41,6 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain
 
         Stream GetResource(string containerName, string resourceName, out string contentType);
 
-        HighlightTermsResponse HighlightTerms(HighlightTermsRequest request);
-
         void RemoveFileFromIndex(PostedDataEntity postedData);
 
         SummarySearchResult Search(SearchPostedData request);

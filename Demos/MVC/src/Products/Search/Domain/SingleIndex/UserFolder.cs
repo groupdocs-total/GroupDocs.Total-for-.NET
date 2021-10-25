@@ -40,7 +40,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
         public static bool TryCreate(string path, out UserFolder userFolder)
         {
             var name = Path.GetFileName(path);
-            if (Guid.TryParse(name, out Guid guid))
+            Guid guid;
+            if (Guid.TryParse(name, out guid))
             {
                 userFolder = new UserFolder(path, name, guid);
                 return true;

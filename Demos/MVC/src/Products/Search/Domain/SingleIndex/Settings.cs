@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 
 namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 {
@@ -31,22 +30,22 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
         public string HomophoneDictionaryFileName { get; } = "homophones.txt";
         public string SpellingCorrectorDictionaryFileName { get; } = "spellings.txt";
 
-        public Settings(IConfiguration configuration)
+        public Settings()
         {
-            MaxUploadedFiles = configuration.GetValue<int>("AppSettings:MaxUploadedFiles");
-            MaxIndexedFiles = configuration.GetValue<int>("AppSettings:MaxIndexedFiles");
-            MaxFileLength = configuration.GetValue<long>("AppSettings:MaxFileLength");
-            StoragePath = configuration["AppSettings:StoragePath"];
-            IndexDirectoryName = configuration["AppSettings:IndexDirectoryName"];
-            UploadedDirectoryName = configuration["AppSettings:UploadedDirectoryName"];
-            StatusesDirectoryName = configuration["AppSettings:StatusesDirectoryName"];
-            ViewerCacheDirectoryName = configuration["AppSettings:ViewerCacheDirectoryName"];
-            TempIndexDirectoryName = configuration["AppSettings:TempIndexDirectoryName"];
-            MinFolderLifetime = new TimeSpan(configuration.GetValue<int>("AppSettings:MinFolderLifetime"), 0, 0);
-            CleanupPeriod = new TimeSpan(configuration.GetValue<int>("AppSettings:CleanupPeriod"), 0, 0);
-            UrlBase = configuration["ApiResourceBaseUrls:UrlBase"];
-            AdminId = configuration["AdminSettings:AdminId"];
-            LogFilePath = configuration["Logging:FilePath"];
+            MaxUploadedFiles = 50;
+            MaxIndexedFiles = 50;
+            MaxFileLength = 20971520;
+            StoragePath = "C:/SearchApp/Storage/";
+            IndexDirectoryName = "Index";
+            UploadedDirectoryName = "Uploaded";
+            StatusesDirectoryName = "Statuses";
+            ViewerCacheDirectoryName = "ViewerCache";
+            TempIndexDirectoryName = "TempIndex";
+            MinFolderLifetime = new TimeSpan(24, 0, 0);
+            CleanupPeriod = new TimeSpan(1, 0, 0);
+            UrlBase = "https://localhost:44369/";
+            AdminId = "a8fafbe1-b61b-4005-b47c-8fdfd31924f0";
+            LogFilePath = "C:/SearchApp/Log.txt";
         }
     }
 }

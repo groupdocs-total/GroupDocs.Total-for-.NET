@@ -1,6 +1,4 @@
 ﻿using GroupDocs.Total.MVC.Products.Search.Dto.Info;
-using GroupDocs.Total.MVC.Products.Search.Infrastructure;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +19,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
         private bool _alive = true;
         private readonly AutoResetEvent _gate = new AutoResetEvent(false);
 
-        private readonly ILogger<TaskQueueService> _logger;
+        private readonly ILogger _logger;
         private readonly IndexFactoryService _indexFactoryService;
         private readonly Settings _settings;
         private readonly DocumentStatusService _documentStatusService;
@@ -29,7 +27,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
         private readonly Queue<string> _logs = new Queue<string>();
 
         public TaskQueueService(
-            ILogger<TaskQueueService> logger,
+            ILogger logger,
             IndexFactoryService indexFactoryService,
             Settings settings,
             DocumentStatusService documentStatusService,
@@ -76,7 +74,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             bool allowMultipleTasksFromUser = false)
         {
             var task = new AddIndexTask(
-                Log.CreateLogger<AddIndexTask>(),
+                _logger,
                 _indexFactoryService,
                 _documentStatusService,
                 _storageService,
@@ -91,7 +89,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
         public void EnqueueDeleteTask(string userId, string[] fileNames)
         {
             var task = new DeleteIndexTask(
-                Log.CreateLogger<DeleteIndexTask>(),
+                _logger,
                 _indexFactoryService,
                 _documentStatusService,
                 _settings,
@@ -103,7 +101,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
         public void EnqueueCleanupTask()
         {
             var task = new CleanupIndexTask(
-                Log.CreateLogger<CleanupIndexTask>(),
+                _logger,
                 _indexFactoryService,
                 _documentStatusService,
                 _settings);

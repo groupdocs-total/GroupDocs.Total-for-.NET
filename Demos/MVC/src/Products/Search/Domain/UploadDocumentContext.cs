@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GroupDocs.Total.MVC.Products.Search.Domain
@@ -35,7 +36,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain
 
         public async Task FileCopyToAsync(Stream target)
         {
-            await _file.CopyToAsync(target);
+            await _file.CopyToAsync(target, CancellationToken.None);
         }
     }
 }

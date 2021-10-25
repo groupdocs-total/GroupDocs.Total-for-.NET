@@ -21,7 +21,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.ViewerCache
             var key = new DocumentKey(userId.ToString(), fileName);
             lock (_syncRoot)
             {
-                if (!_dictionary.TryGetValue(key, out DocumentCache documentCache))
+                DocumentCache documentCache;
+                if (!_dictionary.TryGetValue(key, out documentCache))
                 {
                     var userFileInfo = new UserFileInfo(_settings, userId, fileName);
                     documentCache = new DocumentCache(this, userFileInfo);

@@ -37,7 +37,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 }
                 else
                 {
-                    if (_statuses.TryGetValue(key, out DocumentStatus currentStatus) &&
+                    DocumentStatus currentStatus;
+                    if (_statuses.TryGetValue(key, out currentStatus) &&
                         (currentStatus == DocumentStatus.Skipped ||
                         currentStatus == DocumentStatus.ProcessedWithError))
                     {
@@ -94,7 +95,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             var key = new DocumentKey(userId, fileName);
             lock (_syncRoot)
             {
-                if (_statuses.TryGetValue(key, out DocumentStatus status))
+                DocumentStatus status;
+                if (_statuses.TryGetValue(key, out status))
                 {
                     return status;
                 }
@@ -156,7 +158,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
         {
             try
             {
-                var filePath = UserFileInfo.GetSourceFilePath(_settings, folderName, fileName, out string _, out string _);
+                string temp1, temp2;
+                var filePath = UserFileInfo.GetSourceFilePath(_settings, folderName, fileName, out temp1, out temp2);
                 var fileInfo = new FileInfo(filePath);
                 return fileInfo.Length;
             }
@@ -207,7 +210,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 for (int i = 0; i < folders.Length; i++)
                 {
                     var fullPath = folders[i];
-                    if (UserFolder.TryCreate(fullPath, out UserFolder userFolder))
+                    UserFolder userFolder;
+                    if (UserFolder.TryCreate(fullPath, out userFolder))
                     {
                         var statusesDirectory = Path.Combine(userFolder.FullPath, _settings.StatusesDirectoryName);
                         Directory.CreateDirectory(statusesDirectory);

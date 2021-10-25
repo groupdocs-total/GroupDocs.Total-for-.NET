@@ -1,7 +1,4 @@
-﻿using GroupDocs.Apps.Common.Contracts;
-using GroupDocs.Apps.Common.DTO;
-using GroupDocs.Apps.Common.DTO.Request;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,11 +6,11 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 {
     internal class StorageService
     {
-        private readonly IStorageApiConnect _storageApiConnect;
+        private readonly Settings _settings;
 
-        public StorageService(IStorageApiConnect storageApiConnect)
+        public StorageService(Settings settings)
         {
-            _storageApiConnect = storageApiConnect;
+            _settings = settings;
         }
 
         public async Task<bool> FileExistsAsync(string folderName, string fileName)
@@ -31,12 +28,12 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         public async Task<string[]> GetFileListAsync(string folderName)
         {
-            var request = new GetAllFilesRequest(folderName, StorageTypes.Source, false);
-            var response = await _storageApiConnect.GetAllFiles(request);
-            var fileList = response.Files
-                .Select(file => file.FileName)
-                .ToArray();
-            return fileList;
+            return await Task.Factory.StartNew(() =>
+            {
+                var folderPath = Path.Combine(_settings.StoragePath, folderName);
+                var files = Directory.GetFiles(folderPath);
+                return files;
+            });
         }
 
         public string[] GetFileList(string folderName)
@@ -48,12 +45,15 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         public async Task UploadFileAsync(string folderName, string fileName, Stream stream)
         {
-            var files = new FileContent[]
+            await Task.Factory.StartNew(() =>
             {
-                new FileContent(fileName, stream),
-            };
-            var request = new FileUploadRequest(files, folderName, StorageTypes.Source);
-            await _storageApiConnect.Upload(request);
+                var folderPath = Path.Combine(_settings.StoragePath, folderName);
+                var filePath = Path.Combine(folderPath, fileName);
+                using (var fs = File.Create(filePath))
+                {
+                    stream.CopyToAsync(fs);
+                }
+            });
         }
 
         public void UploadFile(string folderName, string fileName, Stream stream)
@@ -64,9 +64,12 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         public async Task<Stream> DownloadFileAsync(string folderName, string fileName)
         {
-            var request = new FileDownloadRequest(fileName, folderName, StorageTypes.Source);
-            var response = await _storageApiConnect.DownloadFile(request);
-            return response;
+            return await Task.Factory.StartNew(() =>
+            {
+                var folderPath = Path.Combine(_settings.StoragePath, folderName);
+                var filePath = Path.Combine(folderPath, fileName);
+                return File.OpenRead(filePath);
+            });
         }
 
         public Stream DownloadFile(string folderName, string fileName)
@@ -78,8 +81,12 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         public async Task DeleteFileAsync(string folderName, string fileName)
         {
-            var request = new FileDeleteRequest(fileName, folderName, StorageTypes.Source);
-            await _storageApiConnect.Delete(request);
+            await Task.Factory.StartNew(() =>
+            {
+                var folderPath = Path.Combine(_settings.StoragePath, folderName);
+                var filePath = Path.Combine(folderPath, fileName);
+                File.Delete(filePath);
+            });
         }
 
         public void DeleteFile(string folderName, string fileName)

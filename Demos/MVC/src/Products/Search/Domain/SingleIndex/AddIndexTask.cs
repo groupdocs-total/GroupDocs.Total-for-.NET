@@ -2,7 +2,6 @@
 using GroupDocs.Search.Common;
 using GroupDocs.Search.Events;
 using GroupDocs.Search.Options;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +21,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
         private Index _tempIndex;
 
         public AddIndexTask(
-            Microsoft.Extensions.Logging.ILogger logger,
+            ILogger logger,
             IndexFactoryService indexFactoryService,
             DocumentStatusService documentStatusService,
             StorageService storageService,
@@ -118,7 +117,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 {
                     options.OcrIndexingOptions.EnabledForEmbeddedImages = true;
                     options.OcrIndexingOptions.EnabledForSeparateImages = true;
-                    options.OcrIndexingOptions.OcrConnector = new AsposeCloudOcrConnector(_ocrImageCounter, Settings.OcrTimeLimit);
+                    options.OcrIndexingOptions.OcrConnector = new TesseractOcrConnector();
                 }
                 _tempIndex.Add(documents, options);
 
@@ -157,10 +156,9 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         private Document[] GetDocumentsForProcessing(Index index)
         {
-            var indexedFiles = index.GetIndexedDocuments()
+            var indexedFiles = new HashSet<string>(index.GetIndexedDocuments()
                 .Where(di => di.FilePath.StartsWith(UserId, StringComparison.Ordinal))
-                .Select(di => di.FilePath)
-                .ToHashSet();
+                .Select(di => di.FilePath));
             var alreadyAdded = _files
                 .Where(d => indexedFiles.Contains(d.DocumentKey));
             int maxCount = Settings.MaxIndexedFiles;

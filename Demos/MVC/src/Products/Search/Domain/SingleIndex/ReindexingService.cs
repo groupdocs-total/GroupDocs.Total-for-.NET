@@ -69,7 +69,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 var indexedDocumentKeys = index.GetIndexedDocuments()
                 .Select(di =>
                 {
-                    if (DocumentKey.TryCreateFromString(di.FilePath, out DocumentKey documentKey))
+                    DocumentKey documentKey;
+                    if (DocumentKey.TryCreateFromString(di.FilePath, out documentKey))
                     {
                         return documentKey;
                     }
@@ -87,7 +88,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 for (int i = 0; i < userDirectories.Length; i++)
                 {
                     var fullPath = userDirectories[i];
-                    if (UserFolder.TryCreate(fullPath, out UserFolder userFolder))
+                    UserFolder userFolder;
+                    if (UserFolder.TryCreate(fullPath, out userFolder))
                     {
                         var userId = userFolder.Guid.ToString();
                         var uploadedDirectory = Path.Combine(userFolder.FullPath, _settings.UploadedDirectoryName);

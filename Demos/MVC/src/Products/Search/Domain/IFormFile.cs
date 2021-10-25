@@ -10,6 +10,6 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain
 
         long Length { get; }
 
-        Task CopyToAsync(Stream target, CancellationToken cancellationToken = default);
+        Task CopyToAsync(Stream target, CancellationToken cancellationToken);
     }
 }

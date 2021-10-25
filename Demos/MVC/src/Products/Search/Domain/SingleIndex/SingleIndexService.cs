@@ -74,7 +74,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         public void DeleteFiles(FilesDeleteRequest request)
         {
-            var userFolderName = EnsureFolderName(request.FolderName, out Guid userId);
+            Guid userId;
+            var userFolderName = EnsureFolderName(request.FolderName, out userId);
 
             foreach (var pde in request.Files)
             {
@@ -100,7 +101,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         public async Task DownloadAndAddToIndexAsync(AddToIndexRequest request)
         {
-            var userFolderName = EnsureFolderName(request.FolderName, out Guid userId);
+            Guid userId;
+            var userFolderName = EnsureFolderName(request.FolderName, out userId);
 
             foreach (var pde in request.Files)
             {
@@ -363,7 +365,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         public PrepareDocumentResponse PrepareDocument(PrepareDocumentRequest request)
         {
-            var userFolderName = EnsureFolderName(request.FolderName, out Guid userId);
+            Guid userId;
+            var userFolderName = EnsureFolderName(request.FolderName, out userId);
 
             string fileName = request.FileName;
             string password = string.IsNullOrEmpty(request.Password) ? null : request.Password;
@@ -381,13 +384,16 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         public GetDocumentPageResponse GetDocumentPage(GetDocumentPageRequest request)
         {
-            var userFolderName = EnsureFolderName(request.FolderName, out Guid userId);
+            Guid userId;
+            var userFolderName = EnsureFolderName(request.FolderName, out userId);
 
             string fileName = request.FileName;
             int pageNumber = request.PageNumber;
 
             var documentCache = _htmlCacheService.GetCache(userId, fileName);
-            var pageContent = documentCache.GetPageContent(pageNumber, out string pageName, out int pageCount);
+            string pageName;
+            int pageCount;
+            var pageContent = documentCache.GetPageContent(pageNumber, out pageName, out pageCount);
             var data = HighlightTermsInHtml(pageContent, request.Terms, request.TermSequences, request.CaseSensitive);
             var response = new GetDocumentPageResponse
             {
@@ -411,7 +417,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 throw new ArgumentNullException(nameof(resourceName));
             }
 
-            var userId = ResourcePathConverter.GetFolderName(containerName, resourceName, out string fileName);
+            string fileName;
+            var userId = ResourcePathConverter.GetFolderName(containerName, resourceName, out fileName);
 
             if (string.IsNullOrEmpty(fileName))
             {
@@ -431,13 +438,6 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
             FileStream fileStream = new FileStream(resourceFilePath, FileMode.Open);
             return fileStream;
-        }
-
-        public HighlightTermsResponse HighlightTerms(HighlightTermsRequest request)
-        {
-            var userFolderName = EnsureFolderName(request.FolderName);
-
-            throw new NotImplementedException();
         }
 
         public void RemoveFileFromIndex(PostedDataEntity postedData)
@@ -593,7 +593,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         public async Task<UploadedDocumentEntity> UploadDocumentAsync(UploadDocumentContext context)
         {
-            var userFolderName = EnsureFolderName(context.FolderName, out Guid userId);
+            Guid userId;
+            var userFolderName = EnsureFolderName(context.FolderName, out userId);
 
             string fileName;
             if (string.IsNullOrEmpty(context.Url))
@@ -960,12 +961,14 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         private async Task<string> EnsureFileExistsAsync(string userFolderName, string fileName)
         {
+            string temp;
+            string uploadedDirectoryPath;
             var sourceFilePath = UserFileInfo.GetSourceFilePath(
                 _settings,
                 userFolderName,
                 fileName,
-                out string _,
-                out string uploadedDirectoryPath);
+                out temp,
+                out uploadedDirectoryPath);
             if (!File.Exists(sourceFilePath))
             {
                 Directory.CreateDirectory(uploadedDirectoryPath);
@@ -980,7 +983,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         private static string EnsureFolderName(string folderName)
         {
-            return EnsureFolderName(folderName, out Guid _);
+            Guid temp;
+            return EnsureFolderName(folderName, out temp);
         }
 
         private static string EnsureFolderName(string folderName, out Guid userId)
@@ -1059,7 +1063,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 {
                     var directoryInfo = new DirectoryInfo(directoryPath);
                     var name = directoryInfo.Name;
-                    if (Guid.TryParse(name, out Guid _))
+                    Guid temp;
+                    if (Guid.TryParse(name, out temp))
                     {
                         var path = Path.Combine(directoryInfo.FullName, _settings.UploadedDirectoryName);
                         stringBuilder.AppendLine(name);

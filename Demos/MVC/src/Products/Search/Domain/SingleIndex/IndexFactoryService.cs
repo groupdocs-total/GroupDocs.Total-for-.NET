@@ -3,7 +3,6 @@ using GroupDocs.Search;
 using GroupDocs.Search.Common;
 using GroupDocs.Search.Events;
 using GroupDocs.Search.Options;
-using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using Index = GroupDocs.Search.Index;
@@ -12,7 +11,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 {
     internal class IndexFactoryService
     {
-        private readonly ILogger<IndexFactoryService> _logger;
+        private readonly ILogger _logger;
         private readonly Settings _settings;
         private readonly DictionaryStorageService _dictionaryStorageService;
         private readonly object _syncRoot = new object();
@@ -23,7 +22,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
         public event Action ExclusiveIndexAccess;
 
         public IndexFactoryService(
-            ILogger<IndexFactoryService> logger,
+            ILogger logger,
             Settings settings,
             DictionaryStorageService dictionaryStorageService)
         {

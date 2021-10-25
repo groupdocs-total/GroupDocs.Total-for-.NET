@@ -13,14 +13,20 @@
             _isCached = isCached;
         }
 
-        public int PageNumber => _number;
+        public int PageNumber
+        {
+            get { return _number; }
+        }
 
-        public string Name => _name;
+        public string Name
+        {
+            get { return _name; }
+        }
 
         public bool IsCached
         {
-            get => _isCached;
-            set => _isCached = value;
+            get { return _isCached; }
+            set { _isCached = value; }
         }
     }
 }

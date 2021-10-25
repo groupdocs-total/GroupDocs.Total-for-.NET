@@ -1,5 +1,4 @@
 ﻿using GroupDocs.Total.MVC.Products.Search.Dto.Info;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;

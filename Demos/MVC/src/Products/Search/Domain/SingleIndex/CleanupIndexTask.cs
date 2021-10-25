@@ -44,7 +44,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
         protected override void RunProtected(Index index)
         {
-            var activeFolders = GetActiveFolders(out UserFolder[] outdatedFolders);
+            UserFolder[] outdatedFolders;
+            var activeFolders = GetActiveFolders(out outdatedFolders);
             var uploadedDirectoryName = Settings.UploadedDirectoryName;
             var keys = outdatedFolders
                 .SelectMany(uf => uf.GetDocuments(uploadedDirectoryName))
@@ -74,7 +75,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             for (int i = 0; i < folders.Length; i++)
             {
                 var fullPath = folders[i];
-                if (UserFolder.TryCreate(fullPath, out UserFolder userFolder))
+                UserFolder userFolder;
+                if (UserFolder.TryCreate(fullPath, out userFolder))
                 {
                     var uploadedDirectory = Path.Combine(userFolder.FullPath, Settings.UploadedDirectoryName);
                     Directory.CreateDirectory(uploadedDirectory);

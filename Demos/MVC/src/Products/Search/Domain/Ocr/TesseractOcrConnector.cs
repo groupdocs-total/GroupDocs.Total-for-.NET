@@ -1,6 +1,5 @@
 ﻿using GroupDocs.Search.Options;
 using System.IO;
-using System.Reflection;
 using Tesseract;
 
 namespace GroupDocs.Total.MVC.Products.Search.Domain.Ocr
@@ -16,7 +15,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.Ocr
             var buffer = new byte[context.ImageStream.Length];
             context.ImageStream.Read(buffer, 0, buffer.Length);
 
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            var path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
             path = Path.Combine(path, "tessdata");
             path = path.Replace("file:\\", "");
 

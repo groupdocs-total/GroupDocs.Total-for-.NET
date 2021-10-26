@@ -83,9 +83,9 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                     }
                 }
                 var response = new GetStatusResponse();
-                response.Indexing = indexing;
-                response.Pending = pending;
-                response.Indexed = indexed;
+                response.indexing = indexing;
+                response.pending = pending;
+                response.indexed = indexed;
                 return response;
             }
         }

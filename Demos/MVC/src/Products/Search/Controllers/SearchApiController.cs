@@ -1,11 +1,9 @@
-﻿using GroupDocs.Total.MVC.Products.Common.Entity.Web;
-using GroupDocs.Total.MVC.Products.Common.Resources;
+﻿using GroupDocs.Total.MVC.Products.Common.Resources;
 using GroupDocs.Total.MVC.Products.Search.Domain;
 using GroupDocs.Total.MVC.Products.Search.Dto;
 using GroupDocs.Total.MVC.Products.Search.Dto.Request;
 using GroupDocs.Total.MVC.Products.Search.Dto.Response;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;

@@ -87,9 +87,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 {
                     if (!File.Exists(document.FilePath))
                     {
-                        var inputStreamTask = _storageService.DownloadFileAsync(UserId, document.FileName);
-                        inputStreamTask.Wait();
-                        using (var inputStream = inputStreamTask.Result)
+                        using (var inputStream = _storageService.DownloadFile(UserId, document.FileName))
                         using (var outputStream = File.Create(document.FilePath))
                         {
                             inputStream.CopyTo(outputStream);

@@ -10,6 +10,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
         public int MaxIndexedFiles { get; private set; }
         public long MaxFileLength { get; private set; }
         public string StoragePath { get; private set; }
+        public string DedicatedStoragePath { get; private set; }
         public string IndexDirectoryName { get; private set; }
         public string UploadedDirectoryName { get; private set; }
         public string StatusesDirectoryName { get; private set; }
@@ -35,7 +36,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             MaxUploadedFiles = 50;
             MaxIndexedFiles = 50;
             MaxFileLength = 20971520;
-            StoragePath = "C:/SearchApp/Storage/";
+            StoragePath = "C:/SearchApp/";
+            DedicatedStoragePath = "C:/SearchApp/Storage/";
             IndexDirectoryName = "Index";
             UploadedDirectoryName = "Uploaded";
             StatusesDirectoryName = "Statuses";

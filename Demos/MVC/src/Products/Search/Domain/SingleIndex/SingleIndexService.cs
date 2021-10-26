@@ -83,7 +83,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
                 var documentCache = _htmlCacheService.GetCache(userId, fileName);
 
-                _storageService.DeleteFileAsync(userFolderName, fileName).Wait();
+                _storageService.DeleteFile(userFolderName, fileName);
 
                 if (File.Exists(documentCache.FileInfo.SourceFilePath))
                 {

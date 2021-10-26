@@ -2,10 +2,10 @@
 {
     public class GetStatusResponse
     {
-        public int Indexing { get; set; }
+        public int indexing { get; set; }
 
-        public int Pending { get; set; }
+        public int pending { get; set; }
 
-        public int Indexed { get; set; }
+        public int indexed { get; set; }
     }
 }

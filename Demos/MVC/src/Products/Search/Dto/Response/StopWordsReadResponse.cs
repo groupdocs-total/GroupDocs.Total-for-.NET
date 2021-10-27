@@ -2,6 +2,6 @@
 {
     public class StopWordsReadResponse
     {
-        public string[] StopWords { get; set; }
+        public string[] stopWords { get; set; }
     }
 }

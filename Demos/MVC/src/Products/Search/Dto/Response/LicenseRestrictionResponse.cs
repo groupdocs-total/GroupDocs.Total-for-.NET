@@ -2,15 +2,15 @@
 {
     public class LicenseRestrictionResponse
     {
-        public bool IsRestricted { get; set; }
+        public bool isRestricted { get; set; }
 
-        public string Message { get; set; }
+        public string message { get; set; }
 
         public static LicenseRestrictionResponse CreateNonRestricted()
         {
             var response = new LicenseRestrictionResponse()
             {
-                IsRestricted = false,
+                isRestricted = false,
             };
             return response;
         }
@@ -19,8 +19,8 @@
         {
             var response = new LicenseRestrictionResponse()
             {
-                IsRestricted = true,
-                Message = message,
+                isRestricted = true,
+                message = message,
             };
             return response;
         }

@@ -82,7 +82,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.ViewerCache
         {
             var resourceName = $"p{pageNumber}_{resourceFileName}";
             var containerName = ResourcePathConverter.GetContainerName(_userId, _fileFolderName, resourceName);
-            var resourceUrl = _urlBase + "v1/resources/" + containerName + "/" + resourceName;
+            var resourceUrl = _urlBase + "search/resources/" + containerName + "/" + resourceName;
             return resourceUrl;
         }
 

@@ -45,7 +45,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             TempIndexDirectoryName = "TempIndex";
             MinFolderLifetime = new TimeSpan(24, 0, 0);
             CleanupPeriod = new TimeSpan(1, 0, 0);
-            UrlBase = "https://localhost:44369/";
+            UrlBase = "http://localhost:8080/";
             AdminId = "a8fafbe1-b61b-4005-b47c-8fdfd31924f0";
             LogFilePath = "C:/SearchApp/Log.txt";
         }

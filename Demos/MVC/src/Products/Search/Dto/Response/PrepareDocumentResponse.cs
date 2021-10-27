@@ -2,8 +2,8 @@
 {
     public class PrepareDocumentResponse
     {
-        public string FileName { get; set; }
+        public string fileName { get; set; }
 
-        public bool IsPrepared { get; set; }
+        public bool isPrepared { get; set; }
     }
 }

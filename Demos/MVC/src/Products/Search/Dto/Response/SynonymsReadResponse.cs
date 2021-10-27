@@ -2,6 +2,6 @@
 {
     public class SynonymsReadResponse
     {
-        public string[][] SynonymGroups { get; set; }
+        public string[][] synonymGroups { get; set; }
     }
 }

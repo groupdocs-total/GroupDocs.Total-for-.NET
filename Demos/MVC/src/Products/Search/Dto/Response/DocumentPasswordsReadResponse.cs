@@ -2,6 +2,6 @@
 {
     public class DocumentPasswordsReadResponse
     {
-        public KeyPasswordPair[] Passwords { get; set; }
+        public KeyPasswordPair[] passwords { get; set; }
     }
 }

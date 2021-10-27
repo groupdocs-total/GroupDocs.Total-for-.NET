@@ -2,6 +2,6 @@
 {
     public class AlphabetReadResponse
     {
-        public AlphabetCharacter[] Characters { get; set; }
+        public AlphabetCharacter[] characters { get; set; }
     }
 }

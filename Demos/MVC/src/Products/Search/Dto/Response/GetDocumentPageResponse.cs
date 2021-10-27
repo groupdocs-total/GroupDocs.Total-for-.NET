@@ -2,14 +2,14 @@
 {
     public class GetDocumentPageResponse
     {
-        public string FileName { get; set; }
+        public string fileName { get; set; }
 
-        public int PageNumber { get; set; }
+        public int pageNumber { get; set; }
 
-        public int PageCount { get; set; }
+        public int pageCount { get; set; }
 
-        public string Data { get; set; }
+        public string data { get; set; }
 
-        public string SheetName { get; set; }
+        public string sheetName { get; set; }
     }
 }

@@ -2,6 +2,6 @@
 {
     public class CharacterReplacementsReadResponse
     {
-        public int[] Replacements { get; set; }
+        public int[] replacements { get; set; }
     }
 }

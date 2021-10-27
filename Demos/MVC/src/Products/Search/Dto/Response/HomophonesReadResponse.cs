@@ -2,6 +2,6 @@
 {
     public class HomophonesReadResponse
     {
-        public string[][] HomophoneGroups { get; set; }
+        public string[][] homophoneGroups { get; set; }
     }
 }

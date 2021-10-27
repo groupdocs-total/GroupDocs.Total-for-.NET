@@ -218,14 +218,14 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             try
             {
                 var indexProperties = new IndexPropertiesResponse();
-                indexProperties.IndexVersion = index.IndexInfo.Version;
-                indexProperties.IndexType = index.IndexSettings.IndexType.ToString();
-                indexProperties.UseStopWords = index.IndexSettings.UseStopWords;
-                indexProperties.UseCharacterReplacements = index.IndexSettings.UseCharacterReplacements;
-                indexProperties.AutoDetectEncoding = index.IndexSettings.AutoDetectEncoding;
-                indexProperties.UseRawTextExtraction = index.IndexSettings.UseRawTextExtraction;
+                indexProperties.indexVersion = index.IndexInfo.Version;
+                indexProperties.indexType = index.IndexSettings.IndexType.ToString();
+                indexProperties.useStopWords = index.IndexSettings.UseStopWords;
+                indexProperties.useCharacterReplacements = index.IndexSettings.UseCharacterReplacements;
+                indexProperties.autoDetectEncoding = index.IndexSettings.AutoDetectEncoding;
+                indexProperties.useRawTextExtraction = index.IndexSettings.UseRawTextExtraction;
                 var tss = index.IndexSettings.TextStorageSettings;
-                indexProperties.TextStorageCompression = tss == null ? "No storage" : tss.Compression.ToString();
+                indexProperties.textStorageCompression = tss == null ? "No storage" : tss.Compression.ToString();
 
                 return indexProperties;
             }
@@ -296,7 +296,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 options.GenerateHead = false;
                 options.UseInlineStyles = false;
                 index.Highlight(document, highlighter, options);
-                var result = outputAdapter.GetResult()
+                var text = outputAdapter.GetResult();
+                var result = text
                     .Replace(userFolderName + "/", "")
                     .Replace(userFolderName, "")
                     .Replace("\"><span class=\"highlighted-term\">", "\"><span class=\"counted-term highlighted-term\">");
@@ -377,8 +378,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             bool isPrepared = documentCache.PrepareDocument(password);
 
             var response = new PrepareDocumentResponse();
-            response.FileName = fileName;
-            response.IsPrepared = isPrepared;
+            response.fileName = fileName;
+            response.isPrepared = isPrepared;
             return response;
         }
 
@@ -397,11 +398,11 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             var data = HighlightTermsInHtml(pageContent, request.Terms, request.TermSequences, request.CaseSensitive);
             var response = new GetDocumentPageResponse
             {
-                FileName = fileName,
-                PageNumber = pageNumber,
-                PageCount = pageCount,
-                SheetName = pageName,
-                Data = data,
+                fileName = fileName,
+                pageNumber = pageNumber,
+                pageCount = pageCount,
+                sheetName = pageName,
+                data = data,
             };
             return response;
         }
@@ -642,7 +643,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             UploadedDocumentEntity uploadedDocument = new UploadedDocumentEntity
             {
                 guid = fileName,
-                IsRestricted = false,
+                isRestricted = false,
             };
             return uploadedDocument;
         }
@@ -704,14 +705,14 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
                 int count = dictionary.Count;
 
-                response.Characters = new AlphabetCharacter[count];
+                response.characters = new AlphabetCharacter[count];
                 int order = 0;
                 for (int i = char.MinValue; i <= char.MaxValue; i++)
                 {
                     var characterType = dictionary.GetCharacterType((char)i);
                     if (characterType != CharacterType.Separator)
                     {
-                        response.Characters[order] = new AlphabetCharacter()
+                        response.characters[order] = new AlphabetCharacter()
                         {
                             Character = i,
                             Type = (int)characterType,
@@ -792,7 +793,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
                 _dictionaryStorageService.Load(_settings.StopWordDictionaryFileName, dictionary, d => d.Clear());
 
-                response.StopWords = dictionary.ToArray();
+                response.stopWords = dictionary.ToArray();
 
                 GC.KeepAlive(tempIndex);
                 return response;
@@ -838,7 +839,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
                 _dictionaryStorageService.Load(_settings.SynonymDictionaryFileName, dictionary, d => d.Clear());
 
-                response.SynonymGroups = tempIndex.Dictionaries.SynonymDictionary.GetAllSynonymGroups();
+                response.synonymGroups = tempIndex.Dictionaries.SynonymDictionary.GetAllSynonymGroups();
 
                 GC.KeepAlive(tempIndex);
                 return response;
@@ -884,7 +885,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
                 _dictionaryStorageService.Load(_settings.HomophoneDictionaryFileName, dictionary, d => d.Clear());
 
-                response.HomophoneGroups = tempIndex.Dictionaries.HomophoneDictionary.GetAllHomophoneGroups();
+                response.homophoneGroups = tempIndex.Dictionaries.HomophoneDictionary.GetAllHomophoneGroups();
 
                 GC.KeepAlive(tempIndex);
                 return response;
@@ -930,7 +931,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
 
                 _dictionaryStorageService.Load(_settings.SpellingCorrectorDictionaryFileName, dictionary, d => d.Clear());
 
-                response.Words = tempIndex.Dictionaries.SpellingCorrector.GetWords();
+                response.words = tempIndex.Dictionaries.SpellingCorrector.GetWords();
 
                 GC.KeepAlive(tempIndex);
                 return response;

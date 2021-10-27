@@ -2,6 +2,6 @@
 {
     public class HighlightTermsResponse
     {
-        public string Html { get; set; }
+        public string html { get; set; }
     }
 }

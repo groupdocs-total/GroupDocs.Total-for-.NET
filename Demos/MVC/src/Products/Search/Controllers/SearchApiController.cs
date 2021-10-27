@@ -159,7 +159,10 @@ namespace GroupDocs.Total.MVC.Products.Search.Controllers
             try
             {
                 var result = _searchService.Highlight(request);
-                return this.Request.CreateResponse(HttpStatusCode.OK, result);
+                var response = new HttpResponseMessage();
+                response.Content = new StringContent(result);
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
+                return response;
             }
             catch (Exception ex)
             {

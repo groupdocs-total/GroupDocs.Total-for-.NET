@@ -2,18 +2,18 @@
 {
     public class IndexPropertiesResponse
     {
-        public string IndexVersion { get; set; }
+        public string indexVersion { get; set; }
 
-        public string IndexType { get; set; }
+        public string indexType { get; set; }
 
-        public bool UseStopWords { get; set; }
+        public bool useStopWords { get; set; }
 
-        public bool UseCharacterReplacements { get; set; }
+        public bool useCharacterReplacements { get; set; }
 
-        public bool AutoDetectEncoding { get; set; }
+        public bool autoDetectEncoding { get; set; }
 
-        public bool UseRawTextExtraction { get; set; }
+        public bool useRawTextExtraction { get; set; }
 
-        public string TextStorageCompression { get; set; }
+        public string textStorageCompression { get; set; }
     }
 }

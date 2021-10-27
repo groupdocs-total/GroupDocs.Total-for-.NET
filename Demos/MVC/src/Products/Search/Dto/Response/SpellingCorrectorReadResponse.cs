@@ -2,6 +2,6 @@
 {
     public class SpellingCorrectorReadResponse
     {
-        public string[] Words { get; set; }
+        public string[] words { get; set; }
     }
 }

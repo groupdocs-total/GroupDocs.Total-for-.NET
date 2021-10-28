@@ -2,10 +2,10 @@
 {
     public class ExistingFolderInfo
     {
-        public string FolderName { get; set; }
+        public string folderName { get; set; }
 
-        public int DocumentCount { get; set; }
+        public int documentCount { get; set; }
 
-        public ExistingDocumentInfo[] DocumentList { get; set; }
+        public ExistingDocumentInfo[] documentList { get; set; }
     }
 }

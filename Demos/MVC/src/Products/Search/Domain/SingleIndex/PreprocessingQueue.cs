@@ -31,10 +31,10 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             lock (_syncRoot)
             {
                 var info = new PreprocessingQueueInfo();
-                info.ActiveTasks = _activeTasks
+                info.activeTasks = _activeTasks
                     .Select(it => it.ToString())
                     .ToArray();
-                info.QueuedTasks = _queue
+                info.queuedTasks = _queue
                     .Select(it => it.ToString())
                     .ToArray();
                 return info;

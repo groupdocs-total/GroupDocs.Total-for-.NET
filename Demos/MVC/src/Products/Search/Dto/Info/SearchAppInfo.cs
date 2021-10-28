@@ -2,14 +2,14 @@
 {
     public class SearchAppInfo
     {
-        public IndexStatusInfo IndexStatus { get; set; }
+        public IndexStatusInfo indexStatus { get; set; }
 
-        public PreprocessingQueueInfo PreprocessingQueue { get; set; }
+        public PreprocessingQueueInfo preprocessingQueue { get; set; }
 
-        public TaskQueueInfo TaskQueue { get; set; }
+        public TaskQueueInfo taskQueue { get; set; }
 
-        public ExistingDocumentInfo[] DocumentList { get; set; }
+        public ExistingDocumentInfo[] documentList { get; set; }
 
-        public ExistingFolderInfo[] FolderList { get; set; }
+        public ExistingFolderInfo[] folderList { get; set; }
     }
 }

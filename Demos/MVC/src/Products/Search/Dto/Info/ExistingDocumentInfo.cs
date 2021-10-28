@@ -2,12 +2,12 @@
 {
     public class ExistingDocumentInfo
     {
-        public string FolderName { get; set; }
+        public string folderName { get; set; }
 
-        public string FileName { get; set; }
+        public string fileName { get; set; }
 
-        public long Length { get; set; }
+        public long length { get; set; }
 
-        public string Status { get; set; }
+        public string status { get; set; }
     }
 }

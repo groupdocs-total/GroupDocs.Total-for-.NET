@@ -39,9 +39,9 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 index = Allocate();
                 var ii = index.IndexInfo;
                 var info = new IndexStatusInfo();
-                info.IndexStatus = ii.IndexStatus.ToString();
-                info.Version = ii.Version;
-                info.Time = DateTime.Now.ToString("s");
+                info.indexStatus = ii.IndexStatus.ToString();
+                info.version = ii.Version;
+                info.time = DateTime.Now.ToString("s");
                 return info;
             }
             finally

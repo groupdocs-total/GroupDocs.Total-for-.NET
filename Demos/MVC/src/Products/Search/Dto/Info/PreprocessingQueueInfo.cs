@@ -2,8 +2,8 @@
 {
     public class PreprocessingQueueInfo
     {
-        public string[] ActiveTasks { get; set; }
+        public string[] activeTasks { get; set; }
 
-        public string[] QueuedTasks { get; set; }
+        public string[] queuedTasks { get; set; }
     }
 }

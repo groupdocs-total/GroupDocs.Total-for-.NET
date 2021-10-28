@@ -2,10 +2,10 @@
 {
     public class IndexStatusInfo
     {
-        public string IndexStatus { get; set; }
+        public string indexStatus { get; set; }
 
-        public string Version { get; set; }
+        public string version { get; set; }
 
-        public string Time { get; set; }
+        public string time { get; set; }
     }
 }

@@ -123,10 +123,10 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 var array = _statuses
                 .Select(pair => new ExistingDocumentInfo()
                 {
-                    FolderName = pair.Key.UserId,
-                    FileName = pair.Key.FileName,
-                    Length = GetFileLength(pair.Key.UserId, pair.Key.FileName),
-                    Status = pair.Value.ToString(),
+                    folderName = pair.Key.UserId,
+                    fileName = pair.Key.FileName,
+                    length = GetFileLength(pair.Key.UserId, pair.Key.FileName),
+                    status = pair.Value.ToString(),
                 })
                 .ToArray();
                 return array;

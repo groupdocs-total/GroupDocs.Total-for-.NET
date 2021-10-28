@@ -22,7 +22,10 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
         public bool FileExists(string folderName, string fileName)
         {
             var list = GetFileList(folderName);
-            return list.Contains(fileName);
+            bool exists = list
+                .Select(path => Path.GetFileName(path))
+                .Contains(fileName);
+            return exists;
         }
 
         public async Task<string[]> GetFileListAsync(string folderName)
@@ -54,7 +57,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             var filePath = Path.Combine(folderPath, fileName);
             using (var fs = File.Create(filePath))
             {
-                stream.CopyToAsync(fs);
+                stream.CopyTo(fs);
             }
         }
 

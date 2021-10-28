@@ -113,10 +113,10 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             lock (_syncRoot)
             {
                 var info = new TaskQueueInfo();
-                info.Tasks = _queue
+                info.tasks = _queue
                     .Select(it => it.ToString())
                     .ToArray();
-                info.TaskLogs = Logs;
+                info.taskLogs = Logs;
                 return info;
             }
         }

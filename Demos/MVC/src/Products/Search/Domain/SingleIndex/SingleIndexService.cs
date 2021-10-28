@@ -246,10 +246,10 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 return response;
             }
 
-            response.IndexStatus = _indexFactoryService.GetIndexInfo();
-            response.PreprocessingQueue = _taskQueueService.PreprocessingQueue.GetTasks();
-            response.TaskQueue = _taskQueueService.GetTasks();
-            response.DocumentList = _documentStatusService.GetStatuses();
+            response.indexStatus = _indexFactoryService.GetIndexInfo();
+            response.preprocessingQueue = _taskQueueService.PreprocessingQueue.GetTasks();
+            response.taskQueue = _taskQueueService.GetTasks();
+            response.documentList = _documentStatusService.GetStatuses();
             return response;
         }
 
@@ -714,8 +714,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                     {
                         response.characters[order] = new AlphabetCharacter()
                         {
-                            Character = i,
-                            Type = (int)characterType,
+                            character = i,
+                            type = (int)characterType,
                         };
                         order++;
                     }
@@ -744,8 +744,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 {
                     int letterType = (int)CharacterType.Letter;
                     var letter = request.Characters
-                        .Where(ac => ac.Type == letterType)
-                        .Select(ac => (char)ac.Character)
+                        .Where(ac => ac.type == letterType)
+                        .Select(ac => (char)ac.character)
                         .ToArray();
                     dictionary.SetRange(letter, CharacterType.Letter);
                     separator = separator.Except(letter);
@@ -753,8 +753,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 {
                     int blendedType = (int)CharacterType.Blended;
                     var blended = request.Characters
-                        .Where(ac => ac.Type == blendedType)
-                        .Select(ac => (char)ac.Character)
+                        .Where(ac => ac.type == blendedType)
+                        .Select(ac => (char)ac.character)
                         .ToArray();
                     dictionary.SetRange(blended, CharacterType.Blended);
                     separator = separator.Except(blended);
@@ -762,8 +762,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
                 {
                     int separateWordType = (int)CharacterType.SeparateWord;
                     var separateWord = request.Characters
-                        .Where(ac => ac.Type == separateWordType)
-                        .Select(ac => (char)ac.Character)
+                        .Where(ac => ac.type == separateWordType)
+                        .Select(ac => (char)ac.character)
                         .ToArray();
                     dictionary.SetRange(separateWord, CharacterType.SeparateWord);
                     separator = separator.Except(separateWord);

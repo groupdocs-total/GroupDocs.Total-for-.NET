@@ -2,8 +2,8 @@
 {
     public class TaskQueueInfo
     {
-        public string[] Tasks { get; set; }
+        public string[] tasks { get; set; }
 
-        public string[] TaskLogs { get; set; }
+        public string[] taskLogs { get; set; }
     }
 }

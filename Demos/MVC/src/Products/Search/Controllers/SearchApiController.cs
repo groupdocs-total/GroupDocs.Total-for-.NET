@@ -540,5 +540,37 @@ namespace GroupDocs.Total.MVC.Products.Search.Controllers
                 return this.Request.CreateResponse(HttpStatusCode.InternalServerError, new Resources().GenerateException(ex));
             }
         }
+
+        [HttpPost]
+        [Route("search/getCharacterReplacementDictionary")]
+        public HttpResponseMessage GetCharacterReplacementDictionary(SearchBaseRequest request)
+        {
+            try
+            {
+                var response = _searchService.GetCharacterReplacements(request);
+                return this.Request.CreateResponse(HttpStatusCode.OK, response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Get character replacement dictionary error.");
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, new Resources().GenerateException(ex));
+            }
+        }
+
+        [HttpPost]
+        [Route("search/setCharacterReplacementDictionary")]
+        public HttpResponseMessage SetCharacterReplacementDictionary(CharacterReplacementsUpdateRequest request)
+        {
+            try
+            {
+                _searchService.SetCharacterReplacements(request);
+                return this.Request.CreateResponse(HttpStatusCode.OK, LicenseRestrictionResponse.CreateNonRestricted());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Set character replacement dictionary error.");
+                return this.Request.CreateResponse(HttpStatusCode.InternalServerError, new Resources().GenerateException(ex));
+            }
+        }
     }
 }

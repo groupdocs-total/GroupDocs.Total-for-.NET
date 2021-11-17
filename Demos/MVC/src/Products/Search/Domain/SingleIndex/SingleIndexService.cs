@@ -960,6 +960,60 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             }
         }
 
+        public CharacterReplacementsReadResponse GetCharacterReplacements(SearchBaseRequest request)
+        {
+            var userFolderName = EnsureFolderName(request.FolderName);
+
+            var response = new CharacterReplacementsReadResponse();
+
+            if (userFolderName != _settings.AdminId)
+            {
+                return response;
+            }
+
+            using (var tempIndex = _indexFactoryService.CreateTempIndexInMemory())
+            {
+                var dictionary = tempIndex.Dictionaries.CharacterReplacements;
+
+                _dictionaryStorageService.Load(_settings.CharacterReplacementDictionaryFileName, dictionary, d => d.Clear());
+
+                var replacements = new int[1 << 16];
+                for (int i = 0; i <= char.MaxValue; i++)
+                {
+                    replacements[i] = dictionary.GetReplacement((char)i);
+                }
+
+                response.replacements = replacements;
+
+                GC.KeepAlive(tempIndex);
+                return response;
+            }
+        }
+
+        public void SetCharacterReplacements(CharacterReplacementsUpdateRequest request)
+        {
+            var userFolderName = EnsureFolderName(request.FolderName);
+
+            if (userFolderName != _settings.AdminId)
+            {
+                return;
+            }
+
+            using (var tempIndex = _indexFactoryService.CreateTempIndexInMemory())
+            {
+                var dictionary = tempIndex.Dictionaries.CharacterReplacements;
+
+                dictionary.Clear();
+                var collection = request.Replacements
+                    .Select((r, c) => new CharacterReplacementPair((char)c, (char)r));
+                dictionary.AddRange(collection);
+
+                _dictionaryStorageService.Save(_settings.CharacterReplacementDictionaryFileName, dictionary);
+
+                GC.KeepAlive(tempIndex);
+            }
+        }
+
         private async Task<string> EnsureFileExistsAsync(string userFolderName, string fileName)
         {
             string temp;

@@ -70,5 +70,9 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain
         SpellingCorrectorReadResponse GetSpellingCorrectorWords(SearchBaseRequest request);
 
         void SetSpellingCorrectorWords(SpellingCorrectorUpdateRequest request);
+
+        CharacterReplacementsReadResponse GetCharacterReplacements(SearchBaseRequest request);
+
+        void SetCharacterReplacements(CharacterReplacementsUpdateRequest request);
     }
 }

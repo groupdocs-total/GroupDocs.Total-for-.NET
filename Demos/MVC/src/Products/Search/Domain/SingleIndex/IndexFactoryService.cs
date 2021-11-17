@@ -179,6 +179,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
             _dictionaryStorageService.Load(_settings.SynonymDictionaryFileName, dictionaries.SynonymDictionary, d => d.Clear());
             _dictionaryStorageService.Load(_settings.HomophoneDictionaryFileName, dictionaries.HomophoneDictionary, d => d.Clear());
             _dictionaryStorageService.Load(_settings.SpellingCorrectorDictionaryFileName, dictionaries.SpellingCorrector, d => d.Clear());
+            _dictionaryStorageService.Load(_settings.CharacterReplacementDictionaryFileName, dictionaries.CharacterReplacements, d => d.Clear());
         }
 
         private IndexSettings CreateIndexSettings(string indexDirectory, bool inMemory)

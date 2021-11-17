@@ -30,6 +30,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Domain.SingleIndex
         public string SynonymDictionaryFileName { get; } = "synonyms.txt";
         public string HomophoneDictionaryFileName { get; } = "homophones.txt";
         public string SpellingCorrectorDictionaryFileName { get; } = "spellings.txt";
+        public string CharacterReplacementDictionaryFileName { get; } = "replacements.txt";
 
         public Settings()
         {

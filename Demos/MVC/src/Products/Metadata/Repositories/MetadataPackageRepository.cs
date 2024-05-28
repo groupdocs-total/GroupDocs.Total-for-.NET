@@ -36,7 +36,7 @@ namespace GroupDocs.Total.MVC.Products.Metadata.Repositories
         {
             foreach (var package in GetPackages())
             {
-                foreach (var descriptor in package.KnowPropertyDescriptors)
+                foreach (var descriptor in package.PropertyDescriptors)
                 {
                     if (IsPropertyTypeSupported(descriptor.Type))
                     {

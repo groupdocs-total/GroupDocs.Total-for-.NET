@@ -14,7 +14,6 @@ namespace GroupDocs.Total.MVC.Products.Viewer.Cache
         private readonly GroupDocs.Viewer.Viewer viewer;
         private readonly PngViewOptions pngViewOptions;
         private readonly ViewInfoOptions viewInfoOptions;
-        private readonly PdfViewOptions pdfViewOptions;
         private static readonly Common.Config.GlobalConfiguration globalConfiguration = new Common.Config.GlobalConfiguration();
 
         public PngViewer(string filePath, IViewerCache cache, LoadOptions loadOptions, int pageNumber = -1, int newAngle = 0)
@@ -23,7 +22,6 @@ namespace GroupDocs.Total.MVC.Products.Viewer.Cache
             this.filePath = filePath;
             this.viewer = new GroupDocs.Viewer.Viewer(filePath, loadOptions);
             this.pngViewOptions = this.CreatePngViewOptions(pageNumber, newAngle);
-            this.pdfViewOptions = this.CreatePdfViewOptions();
             this.viewInfoOptions = ViewInfoOptions.FromPngViewOptions(this.pngViewOptions);
         }
 
@@ -55,27 +53,6 @@ namespace GroupDocs.Total.MVC.Products.Viewer.Cache
             return createdPngViewOptions;
         }
 
-        private PdfViewOptions CreatePdfViewOptions()
-        {
-            PdfViewOptions pdfViewOptions = new PdfViewOptions(
-                () =>
-                {
-                    string fileName = "f.pdf";
-                    string cacheFilePath = this.cache.GetCacheFilePath(fileName);
-
-                    return File.Create(cacheFilePath);
-                });
-
-            pdfViewOptions.SpreadsheetOptions = SpreadsheetOptions.ForOnePagePerSheet();
-            pdfViewOptions.SpreadsheetOptions.TextOverflowMode = TextOverflowMode.HideText;
-            pdfViewOptions.SpreadsheetOptions.RenderGridLines = globalConfiguration.GetViewerConfiguration().GetShowGridLines();
-            pdfViewOptions.SpreadsheetOptions.RenderHeadings = true;
-
-            SetWatermarkOptions(pdfViewOptions);
-
-            return pdfViewOptions;
-        }
-
         /// <summary>
         /// Gets enumeration member by rotation angle value.
         /// </summary>
@@ -96,6 +73,25 @@ namespace GroupDocs.Total.MVC.Products.Viewer.Cache
             }
         }
 
+        public GroupDocs.Viewer.Results.FileInfo GetFileInfo()
+        {
+            string cacheKey = "file_info.dat";
+
+            GroupDocs.Viewer.Results.FileInfo viewInfo = this.cache.GetValue(cacheKey, () => this.ReadFileInfo());
+
+            return viewInfo;
+        }
+
+        public System.IO.FileInfo GetPageFile(int pageNumber)
+        {
+            this.CreateCache();
+
+            string pageKey = $"p{pageNumber}.png";
+            string cacheFilePath = this.cache.GetCacheFilePath(pageKey);
+
+            return new System.IO.FileInfo(cacheFilePath);
+        }
+
         public void CreateCache()
         {
             ViewInfo viewInfo = this.GetViewInfo();
@@ -111,24 +107,6 @@ namespace GroupDocs.Total.MVC.Products.Viewer.Cache
             }
         }
 
-        public Stream GetPdf()
-        {
-            string cacheKey = "f.pdf";
-
-            if (!this.cache.Contains(cacheKey))
-            {
-                using (new CrossProcessLock(this.filePath))
-                {
-                    if (!this.cache.Contains(cacheKey))
-                    {
-                        this.viewer.View(this.pdfViewOptions);
-                    }
-                }
-            }
-
-            return this.cache.GetValue<Stream>(cacheKey);
-        }
-
         public void Dispose()
         {
             this.viewer?.Dispose();
@@ -140,21 +118,23 @@ namespace GroupDocs.Total.MVC.Products.Viewer.Cache
         /// <param name="options"></param>
         private static void SetWatermarkOptions(ViewOptions options)
         {
-            GroupDocs.Viewer.Options.Watermark watermark = null;
-
             if (!string.IsNullOrEmpty(globalConfiguration.GetViewerConfiguration().GetWatermarkText()))
             {
                 // Set watermark properties
-                watermark = new GroupDocs.Viewer.Options.Watermark(globalConfiguration.GetViewerConfiguration().GetWatermarkText())
+                options.Watermark = new GroupDocs.Viewer.Options.Watermark(globalConfiguration.GetViewerConfiguration().GetWatermarkText())
                 {
-                    Color = System.Drawing.Color.Blue,
+                    Color = GroupDocs.Viewer.Drawing.Argb32Color.FromRgb(0, 0, 255), //Blue                
                     Position = Position.Diagonal,
                 };
             }
+        }
 
-            if (watermark != null)
+        private GroupDocs.Viewer.Results.FileInfo ReadFileInfo()
+        {
+            using (new CrossProcessLock(this.filePath))
             {
-                options.Watermark = watermark;
+                GroupDocs.Viewer.Results.FileInfo fileInfo = this.viewer.GetFileInfo();
+                return fileInfo;
             }
         }
 

@@ -3,6 +3,7 @@ using GroupDocs.Conversion.Contracts;
 using GroupDocs.Conversion.FileTypes;
 using GroupDocs.Conversion.Options.Convert;
 using GroupDocs.Total.MVC.Products.Conversion.Entity.Web.Request;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -35,7 +36,7 @@ namespace GroupDocs.Total.MVC.Products.Conversion.Manager
                         outputFileTemplate = Path.Combine(filesDirectory, fileNameWoExt + "." + destinationType);
                     }
 
-                    SavePageStream getPageStream = page => new FileStream(string.Format(outputFileTemplate, page), FileMode.Create);
+                    Func<int, Stream> getPageStream = page => new FileStream(string.Format(outputFileTemplate, page), FileMode.Create);
                     converter.Convert(getPageStream, convertOptions);
                 }
                 else

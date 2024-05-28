@@ -202,7 +202,7 @@ namespace GroupDocs.Total.MVC.Products.Viewer.Cache
         {
             public override Type BindToType(string assemblyName, string typeName)
             {
-                string assembly = System.Reflection.Assembly.GetAssembly(typeof(GroupDocs.Viewer.Viewer)).FullName;
+                string assembly = System.Reflection.Assembly.GetExecutingAssembly().FullName;
                 Type type = Type.GetType($"{typeName}, {assembly}");
 
                 return type;

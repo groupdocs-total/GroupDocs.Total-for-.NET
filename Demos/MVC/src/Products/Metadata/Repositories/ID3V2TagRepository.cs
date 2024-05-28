@@ -2,6 +2,7 @@
 using GroupDocs.Metadata.Common;
 using GroupDocs.Metadata.Formats.Audio;
 using GroupDocs.Total.MVC.Products.Metadata.Model;
+using System;
 using System.Collections.Generic;
 
 namespace GroupDocs.Total.MVC.Products.Metadata.Repositories
@@ -86,7 +87,7 @@ namespace GroupDocs.Total.MVC.Products.Metadata.Repositories
 
         public override IEnumerable<Model.PropertyDescriptor> GetDescriptors()
         {
-            foreach (var descriptor in BranchPackage.KnowPropertyDescriptors)
+            foreach (var descriptor in BranchPackage.PropertyDescriptors)
             {
                 if (descriptor.Type == MetadataPropertyType.Metadata)
                 {

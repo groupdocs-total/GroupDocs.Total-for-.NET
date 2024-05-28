@@ -39,7 +39,7 @@ namespace GroupDocs.Total.MVC.Products.Metadata.Repositories
         {
             foreach (var package in GetPackages())
             {
-                foreach (var descriptor in package.KnowPropertyDescriptors)
+                foreach (var descriptor in package.PropertyDescriptors)
                 {
                     if (supportedPropertyTypes.Contains(descriptor.Type))
                     {
@@ -48,6 +48,8 @@ namespace GroupDocs.Total.MVC.Products.Metadata.Repositories
                 }
             }
         }
+
+       
 
         public override void RemoveProperty(string name)
         {

@@ -85,7 +85,7 @@ namespace GroupDocs.Total.MVC.Products.Search.Service
                 SearchDocumentResult searchDocumentResult = new SearchDocumentResult();
 
                 FoundDocument document = result.GetFoundDocument(i);
-                HtmlFragmentHighlighter highlighter = new HtmlFragmentHighlighter();
+                FragmentHighlighter highlighter = new FragmentHighlighter(OutputFormat.Html);                
                 index.Highlight(document, highlighter, options);
                 FragmentContainer[] fragmentContainers = highlighter.GetResult();
 
@@ -183,12 +183,13 @@ namespace GroupDocs.Total.MVC.Products.Search.Service
 
         private static void InitSpecailCharsList()
         {
-            IEnumerator<char> ie = index.Dictionaries.Alphabet.GetEnumerator();
-            while (ie.MoveNext())
-            {
-                char item = ie.Current;
-                specialCharsList.Add(item);
-            }
+            // TODO: Update
+            //IEnumerator<char> ie = index.Dictionaries.Alphabet.GetEnumerator();
+            //while (ie.MoveNext())
+            //{
+            //    char item = ie.Current;
+            //    specialCharsList.Add(item);
+            //}
         }
 
         internal static void AddFilesToIndex(PostedDataEntity[] postedData, GlobalConfiguration globalConfiguration)

@@ -1,12 +1,10 @@
 # GroupDocs.Total for .NET MVC Example
 
-[![Build status](https://ci.appveyor.com/api/projects/status/x65wugr7jm688vrt/branch/master?svg=true)](https://ci.appveyor.com/project/bobkovalex/groupdocs-total-for-net-mvc/branch/master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9f84daaeb4f143568d6b8e17faec0880)](https://www.codacy.com/gh/groupdocs-total/GroupDocs.Total-for-NET-MVC?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=groupdocs-total/GroupDocs.Total-for-NET-MVC&amp;utm_campaign=Badge_Grade)
-[![GitHub license](https://img.shields.io/github/license/groupdocs-total/GroupDocs.Total-for-NET-MVC.svg)](https://github.com/groupdocs-total/GroupDocs.Total-for-NET-MVC/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/groupdocs-total/GroupDocs.Total-for-.NET.svg)](https://github.com/groupdocs-total/GroupDocs.Total-for-.NET/blob/main/Demos/MVC/LICENSE)
 
 ## System Requirements
-- .NET Framework 4.5
-- Visual Studio 2015
+- .NET Framework 4.6
+- Visual Studio 2019 and latter
 
 
 ## All-in-one document automation API
@@ -27,8 +25,8 @@ This web application demonstrates the following document manipulation capabiliti
 
 ## Supported document Formats
 
-| Family                      | Formats                                                                                                                            |
-| --------------------------- |:---------------------------------------------------------------------------------------------------------------------------------- |
+| Family | Formats |
+|---|:---|
 | Portable Document Format    | `PDF`                                                                                                                              |
 | Microsoft Word              | `DOC`, `DOCM` , `DOCX`, `DOT`, `DOTM`, `DOTX`                                                                                      |
 | Microsoft Excel             | `XLS`, `XLSB`, `XLSM`, `XLSX`, `XLT`, `XLTM`, `XLTX`                                                                               |
@@ -45,12 +43,7 @@ This web application demonstrates the following document manipulation capabiliti
 | Image files                 | `BMP`, `CAL`, `DCX`, `DIB`, `EMF`, `GIF`, `JP2`, `JPG`, `MIL`, `MIL`, `PCD`, `PCT`, `PCX`, `PNG`, `PSD`, `RAS`, `TGA`,`TIFF`,`WMF` |
 | Electronic publication      | `EPUB`                                                                                                                             |
 | Windows Icon                | `ICO`                                                                                                                              |
-| Medical image files         | `DCM`                                                                                                                              | 
-
-
-
-## Demo Video
-Coming soon
+| Medical image files         | `DCM`                                                                                                                              |
 
 
 ## Features
@@ -206,10 +199,10 @@ You can run this sample by one of following methods
 
 ### Build from source
 
-Download [source code](https://github.com/groupdocs-total/GroupDocs.Total-for-NET-MVC/archive/master.zip) from github or clone this repository.
+Download [source code](https://github.com/groupdocs-total/GroupDocs.Total-for-.NET/archive/refs/heads/main.zip) from github or clone this repository.
 
 ```bash
-git clone https://github.com/groupdocs-total/GroupDocs.Total-for-NET-MVC
+git clone https://github.com/groupdocs-total/GroupDocs.Total-for-.NET
 ```
 
 Open solution in the VisualStudio.
@@ -246,16 +239,16 @@ Please have a look at the LICENSE.md for more details
 
 ## GroupDocs Total on other platforms & frameworks
 
-- [GroupDocs.Total with JAVA Spring ](https://github.com/groupdocs-total/GroupDocs.Total-for-Java-Spring)
-- [GroupDocs.Total with JAVA Dropwizard ](https://github.com/groupdocs-total/GroupDocs.Total-for-Java-Dropwizard)
-- [GroupDocs.Total with .NET WebForms ](https://github.com/groupdocs-total/GroupDocs.Total-for-.NET-WebForms)
+- [GroupDocs.Total with Java Spring ](https://github.com/groupdocs-total/GroupDocs.Total-for-Java/tree/main/Demos/Spring)
+- [GroupDocs.Total with Java Dropwizard ](https://github.com/groupdocs-total/GroupDocs.Total-for-Java/tree/main/Demos/Dropwizard)
+- [GroupDocs.Total with .NET WebForms ](https://github.com/groupdocs-total/GroupDocs.Total-for-.NET/tree/main/Demos/WebForms)
 
 ## Resources
 - **Website:** [www.groupdocs.com](http://www.groupdocs.com)
-- **Product Home:** [GroupDocs.Total for .NET](https://products.groupdocs.com/total/net)
-- **Product API References:** [GroupDocs.Total for .NET API](https://apireference.groupdocs.com)
-- **Download:** [Download GroupDocs.Total for .NET](https://downloads.groupdocs.com/total/net)
-- **Documentation:** [GroupDocs.Total for .NET Documentation](https://docs.groupdocs.com/dashboard.action)
+- **Product Home:** [GroupDocs.Total for .NET](https://products.groupdocs.com/total/net/)
+- **Product API References:** [GroupDocs API](https://apireference.groupdocs.com)
+- **Download:** [Download GroupDocs.Total for .NET](https://releases.groupdocs.com/total/net/)
+- **Documentation:** [GroupDocs.Total for .NET Documentation](https://docs.groupdocs.com/total/)
 - **Free Support Forum:** [GroupDocs.Total for .NET Free Support Forum](https://forum.groupdocs.com/c/total)
 - **Paid Support Helpdesk:** [GroupDocs.Total for .NET Paid Support Helpdesk](https://helpdesk.groupdocs.com)
 - **Blog:** [GroupDocs.Total for .NET Blog](https://blog.groupdocs.com/category/groupdocs-total-product-family)

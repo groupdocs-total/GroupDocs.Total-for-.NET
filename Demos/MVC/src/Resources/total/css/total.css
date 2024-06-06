@@ -1,0 +1,126 @@
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body{
+  font-family: "proxima-nova-soft", "Proxima Nova Soft", Helvetica, Arial, sans-serif;
+  width: 100%;
+  height: 100%;
+}
+
+#container{
+  width: 100%;
+  height: 100%;
+}
+
+#header{
+  width: 100%;
+  height: 170px;
+  background-color: #eeeeee;
+}
+
+#header > h2{
+  font-weight: 400;
+  font-size: 20px;
+  padding-top: 80px;
+  padding-left: 50px;
+}
+
+#header > h3{
+  font-weight: 300;
+  font-size: 14px;
+  padding: 5px 50px;
+  color: #6b6b6b;
+}
+
+#middle{
+  padding: 50px;
+}
+
+#middle > ul{
+  width: 100%;
+  height: 100%;
+}
+
+#middle > ul > li{
+  display: inline-block;
+  margin: 10px;
+  padding: 20px;
+}
+
+#middle > ul a{
+  color: #6f6f6f;
+  text-decoration: none;
+}
+
+#middle > ul img{
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+}
+
+#middle > ul > li > a > div{
+  width: 120px;
+  padding-top: 12px;
+  padding-left: 10px;
+  vertical-align: top;
+  display: inline-block;
+}
+
+#middle > ul > li > a > .coming-soon{
+  color: #d2d2d2;
+}
+
+#middle > ul h5{
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+#middle > ul h6{
+  font-weight: 300;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+#bottom{
+  width: 100%;
+  height: 200px;
+  background-color: #333;
+  position: absolute;
+  bottom: 0;
+  color: #adadad;
+}
+
+#bottom > ul > li{
+    display: inline-table;
+    margin: 0 10px;
+}
+
+#bottom > ul > li > a{
+    color: #cccccc;
+    text-decoration: none;
+}
+
+#bottom > ul > li > a:hover{
+    color: #ffffff;
+}
+
+#bottom > #social{
+    padding: 40px 0;
+    text-align: center;
+}
+
+#bottom > #links{
+    text-align: center;
+    font-size: 12px;
+    padding-bottom: 15px;
+}
+
+#bottom > #copyrights{
+    text-align: center;
+    font-size: 12px;
+    margin-top: 45px;
+}

@@ -1,6 +1,6 @@
 # Tool Runtime Dir
-packages/
-node_modules/
+#packages/
+#node_modules/
 
 # Visual Studio
 .vs/
@@ -15,7 +15,7 @@ node_modules/
 package-lock.json
 
 # Resources
-src/Resources/*
+#src/Resources/*
 !src/Resources/.gitkeep
 
 # Licenses

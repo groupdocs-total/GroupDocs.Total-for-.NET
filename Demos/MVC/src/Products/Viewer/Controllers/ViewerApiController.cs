@@ -620,13 +620,22 @@ namespace GroupDocs.Total.MVC.Products.Viewer.Controllers
 
             foreach (Page page in viewInfo.Pages)
             {
-                PageDescriptionEntity pageData = GetPageInfo(page, pagesInfoPath);
-                if (loadAllPages)
+                try
                 {
-                    pageData.SetData(GetPageContent(page.Number, documentGuid, cachePath, printVersion));
-                }
+                    PageDescriptionEntity pageData = GetPageInfo(page, pagesInfoPath);
+                    if (loadAllPages)
+                    {
+                        pageData.SetData(GetPageContent(page.Number, documentGuid, cachePath, printVersion));
+                    }
 
-                loadDocumentEntity.SetPages(pageData);
+                    loadDocumentEntity.SetPages(pageData);
+                }
+                catch (Exception)
+                {
+
+                   // throw; // TODO: CHECK why Excel files with one page are treated as two page docs.
+                }
+                
             }
 
             loadDocumentEntity.SetGuid(documentGuid);

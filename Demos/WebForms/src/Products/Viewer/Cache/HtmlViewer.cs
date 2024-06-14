@@ -182,7 +182,7 @@ namespace GroupDocs.Total.WebForms.Products.Viewer.Cache
                 // Set watermark properties
                 watermark = new GroupDocs.Viewer.Options.Watermark(globalConfiguration.GetViewerConfiguration().GetWatermarkText())
                 {
-                    Color = System.Drawing.Color.Blue,
+                    Color = GroupDocs.Viewer.Drawing.Argb32Color.FromRgb(0, 0, 255), //Blue
                     Position = Position.Diagonal,
                 };
             }

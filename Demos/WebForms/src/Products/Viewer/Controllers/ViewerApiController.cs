@@ -475,31 +475,7 @@ namespace GroupDocs.Total.WebForms.Products.Viewer.Controllers
             Stream pdfStream = viewer.GetPdf();
             return pdfStream;
         }
-
-        /// <summary>
-        /// Gets page dimensions and rotation angle.
-        /// </summary>
-        /// <param name="page">Page object.</param>
-        /// <param name="pagesInfoPath">Path to file with pages rotation angles data.</param>
-        /// <returns>Page dimensions and rotation angle.</returns>
-        private static PageDescriptionEntity GetPageInfo(Page page, string pagesInfoPath)
-        {
-            int currentAngle = GetCurrentAngle(page.Number, pagesInfoPath);
-
-            PageDescriptionEntity pageDescriptionEntity = new PageDescriptionEntity
-            {
-                number = page.Number,
-
-                // we intentionally use the 0 here because we plan to rotate only the page background using height/width
-                angle = 0,
-                height = currentAngle == 0 || currentAngle == 180 ? page.Height : page.Width,
-                width = currentAngle == 0 || currentAngle == 180 ? page.Width : page.Height,
-                sheetName = page.Name,
-            };
-
-            return pageDescriptionEntity;
-        }
-
+                
         /// <summary>
         /// Gets page content as a string.
         /// </summary>
@@ -552,6 +528,30 @@ namespace GroupDocs.Total.WebForms.Products.Viewer.Controllers
             }
 
             return 0;
+        }
+
+        /// <summary>
+        /// Gets page dimensions and rotation angle.
+        /// </summary>
+        /// <param name="page">Page object.</param>
+        /// <param name="pagesInfoPath">Path to file with pages rotation angles data.</param>
+        /// <returns>Page dimensions and rotation angle.</returns>
+        private static PageDescriptionEntity GetPageInfo(Page page, string pagesInfoPath)
+        {
+            int currentAngle = GetCurrentAngle(page.Number, pagesInfoPath);
+
+            PageDescriptionEntity pageDescriptionEntity = new PageDescriptionEntity
+            {
+                number = page.Number,
+
+                // we intentionally use the 0 here because we plan to rotate only the page background using height/width
+                angle = 0,
+                height = currentAngle == 0 || currentAngle == 180 ? page.Height : page.Width,
+                width = currentAngle == 0 || currentAngle == 180 ? page.Width : page.Height,
+                sheetName = page.Name,
+            };
+
+            return pageDescriptionEntity;
         }
 
         /// <summary>

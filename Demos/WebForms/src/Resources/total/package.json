@@ -1,0 +1,41 @@
+{
+  "_from": "@groupdocs.examples.jquery/total@^0.16.6",
+  "_id": "@groupdocs.examples.jquery/total@0.16.6",
+  "_inBundle": false,
+  "_integrity": "sha512-D5KpjtUKi8PCzrQSuVonLzP0zu9BXG1f1WaJpxpc+u5D1JJWBeW1xbi4VhcJz+8aVu7cXs89c+v1rrl3bUv7oQ==",
+  "_location": "/@groupdocs.examples.jquery/total",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@groupdocs.examples.jquery/total@^0.16.6",
+    "name": "@groupdocs.examples.jquery/total",
+    "escapedName": "@groupdocs.examples.jquery%2ftotal",
+    "scope": "@groupdocs.examples.jquery",
+    "rawSpec": "^0.16.6",
+    "saveSpec": null,
+    "fetchSpec": "^0.16.6"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@groupdocs.examples.jquery/total/-/total-0.16.6.tgz",
+  "_shasum": "a9f88aa9e742bbe765a94598b6a48e03e217f6d9",
+  "_spec": "@groupdocs.examples.jquery/total@^0.16.6",
+  "_where": "D:\\GROUPDOCS\\git-hub\\groupdocs-total\\GroupDocs.Total-for-.NET\\Demos\\WebForms\\src",
+  "author": "",
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "This is common resources used by other GroupDocs jQuery plugins.",
+  "gitHead": "80ea316d372393213a98a1fde11be87906af13b1",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "@groupdocs.examples.jquery/total",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.16.6"
+}

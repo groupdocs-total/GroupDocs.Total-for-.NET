@@ -85,7 +85,7 @@ namespace GroupDocs.Total.WebForms.Products.Metadata.Repositories
 
         public override IEnumerable<Model.PropertyDescriptor> GetDescriptors()
         {
-            foreach (var descriptor in BranchPackage.KnowPropertyDescriptors)
+            foreach (var descriptor in BranchPackage.PropertyDescriptors)
             {
                 if (descriptor.Type == MetadataPropertyType.Metadata)
                 {

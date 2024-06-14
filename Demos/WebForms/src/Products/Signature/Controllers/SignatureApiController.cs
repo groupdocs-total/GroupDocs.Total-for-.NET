@@ -201,19 +201,32 @@ namespace GroupDocs.Total.WebForms.Products.Signature.Controllers
             }
         }
 
+        // TODO: Rewrite this
+        static MemoryStream _pagePreviewStream = null;
         static MemoryStream RenderPageToMemoryStream(GroupDocs.Signature.Signature signature, int pageNumberToRender)
         {
-            MemoryStream result = new MemoryStream();
-            PreviewOptions previewOptions = new PreviewOptions(pageNumber => result)
+            _pagePreviewStream = null;
+            GroupDocs.Signature.Options.PreviewOptions previewOptions = new GroupDocs.Signature.Options.PreviewOptions(CreatePageStream, ReleasePageStream)
             {
                 PreviewFormat = PreviewOptions.PreviewFormats.PNG,
                 PageNumbers = new[] { pageNumberToRender }
             };
-
             signature.GeneratePreview(previewOptions);
 
-            return result;
+            return _pagePreviewStream;
         }
+
+        private static Stream CreatePageStream(int pageNumber)
+        {
+            _pagePreviewStream = new MemoryStream();
+            return _pagePreviewStream;
+        }
+
+        private static void ReleasePageStream(int pageNumber, Stream pageStream)
+        {
+            pageStream.Dispose();
+        }
+
 
         /// <summary>
         /// Load document page

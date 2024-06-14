@@ -39,7 +39,7 @@ namespace GroupDocs.Total.WebForms.Products.Metadata.Repositories
         {
             foreach (var package in GetPackages())
             {
-                foreach (var descriptor in package.KnowPropertyDescriptors)
+                foreach (var descriptor in package.PropertyDescriptors)
                 {
                     if (supportedPropertyTypes.Contains(descriptor.Type))
                     {

@@ -74,7 +74,7 @@ namespace GroupDocs.Total.MVC.Products.Signature.Signer
 
         private static void SetOptions(BarcodeSignOptions signOptions)
         {
-            signOptions.EncodeType = BarcodeTypes.Code39Standard;
+            signOptions.EncodeType = BarcodeTypes.Code39;
             signOptions.HorizontalAlignment = SignatureData.getHorizontalAlignment();
             signOptions.VerticalAlignment = SignatureData.getVerticalAlignment();
             signOptions.Width = Convert.ToInt32(SignatureData.ImageWidth);

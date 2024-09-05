@@ -206,7 +206,8 @@ namespace GroupDocs.Total.MVC.Products.Signature.Controllers
         static MemoryStream RenderPageToMemoryStream(GroupDocs.Signature.Signature signature, int pageNumberToRender)
         {
             _pagePreviewStream = null;
-            GroupDocs.Signature.Options.PreviewOptions previewOptions = new GroupDocs.Signature.Options.PreviewOptions(CreatePageStream, ReleasePageStream)
+            GroupDocs.Signature.Options.PreviewOptions previewOptions = 
+                new GroupDocs.Signature.Options.PreviewOptions(CreatePageStream, ReleasePageStream)
             {
                 PreviewFormat = PreviewOptions.PreviewFormats.PNG,
                 PageNumbers = new[] { pageNumberToRender }
@@ -216,17 +217,16 @@ namespace GroupDocs.Total.MVC.Products.Signature.Controllers
             return _pagePreviewStream;
         }
 
-        private static Stream CreatePageStream(int pageNumber)
+        private static Stream CreatePageStream(PreviewPageData pageData)
         {
             _pagePreviewStream = new MemoryStream();
             return _pagePreviewStream;
         }
 
-        private static void ReleasePageStream(int pageNumber, Stream pageStream)
+        private static void ReleasePageStream(PreviewPageData pageData, Stream pageStream)
         {
             pageStream.Dispose();
         }
-
 
         /// <summary>
         /// Load document page

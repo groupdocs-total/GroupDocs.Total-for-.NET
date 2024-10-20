@@ -271,7 +271,7 @@ namespace GroupDocs.Total.MVC.Products.Editor.Controllers
                 }
 
                 // Instantiate Editor object by loading the input file
-                using (GroupDocs.Editor.Editor editor = new GroupDocs.Editor.Editor(guid, delegate { return loadOptions; }))
+                using (GroupDocs.Editor.Editor editor = new GroupDocs.Editor.Editor(guid, loadOptions))
                 {
                     EditableDocument htmlContentDoc = EditableDocument.FromMarkup(htmlContent, null);
                     dynamic saveOptions = GetSaveOptions(guid);
@@ -626,7 +626,7 @@ namespace GroupDocs.Total.MVC.Products.Editor.Controllers
             }
 
             // Instantiate Editor object by loading the input file
-            using (GroupDocs.Editor.Editor editor = new GroupDocs.Editor.Editor(guid, delegate { return loadOptions; }))
+            using (GroupDocs.Editor.Editor editor = new GroupDocs.Editor.Editor(guid, loadOptions))
             {
                 IDocumentInfo documentInfo = editor.GetDocumentInfo(password);
 

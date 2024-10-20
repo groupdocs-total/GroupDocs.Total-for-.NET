@@ -27,17 +27,17 @@ namespace GroupDocs.Total.WebForms.Products.Editor.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EditorApiController : ApiController
     {
-        private static readonly Common.Config.GlobalConfiguration globalConfiguration = new Common.Config.GlobalConfiguration();
+        private static readonly Common.Config.GlobalConfiguration GlobalConfiguration = new Common.Config.GlobalConfiguration();
 
         /// <summary>
-        /// Load Viewr configuration
+        /// Load Viewer configuration
         /// </summary>
         /// <returns>Editor configuration</returns>
         [HttpGet]
         [Route("editor/loadConfig")]
         public EditorConfiguration LoadConfig()
         {
-            return globalConfiguration.GetEditorConfiguration();
+            return GlobalConfiguration.GetEditorConfiguration();
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace GroupDocs.Total.WebForms.Products.Editor.Controllers
         /// <returns>List of files and directories</returns>
         [HttpPost]
         [Route("editor/loadFileTree")]
-        public HttpResponseMessage loadFileTree(PostedDataEntity postedData)
+        public HttpResponseMessage LoadFileTree(PostedDataEntity postedData)
         {
             // get request body
             string relDirPath = postedData.path;
@@ -58,11 +58,11 @@ namespace GroupDocs.Total.WebForms.Products.Editor.Controllers
                 // get all the files from a directory
                 if (string.IsNullOrEmpty(relDirPath))
                 {
-                    relDirPath = globalConfiguration.GetEditorConfiguration().GetFilesDirectory();
+                    relDirPath = GlobalConfiguration.GetEditorConfiguration().GetFilesDirectory();
                 }
                 else
                 {
-                    relDirPath = Path.Combine(globalConfiguration.GetEditorConfiguration().GetFilesDirectory(), relDirPath);
+                    relDirPath = Path.Combine(GlobalConfiguration.GetEditorConfiguration().GetFilesDirectory(), relDirPath);
                 }
 
                 List<FileDescriptionEntity> fileList = new List<FileDescriptionEntity>();
@@ -78,7 +78,7 @@ namespace GroupDocs.Total.WebForms.Products.Editor.Controllers
 
                     // check if current file/folder is hidden
                     if (!fileInfo.Attributes.HasFlag(FileAttributes.Hidden) &&
-                        !Path.GetFileName(file).Equals(Path.GetFileName(globalConfiguration.GetEditorConfiguration().GetFilesDirectory())) &&
+                        !Path.GetFileName(file).Equals(Path.GetFileName(GlobalConfiguration.GetEditorConfiguration().GetFilesDirectory())) &&
                         !Path.GetFileName(file).StartsWith("."))
                     {
                         FileDescriptionEntity fileDescription = new FileDescriptionEntity();
@@ -185,7 +185,7 @@ namespace GroupDocs.Total.WebForms.Products.Editor.Controllers
                 string url = HttpContext.Current.Request.Form["url"];
 
                 // get documents storage path
-                string documentStoragePath = globalConfiguration.GetEditorConfiguration().GetFilesDirectory();
+                string documentStoragePath = GlobalConfiguration.GetEditorConfiguration().GetFilesDirectory();
                 bool rewrite = bool.Parse(HttpContext.Current.Request.Form["rewrite"]);
                 string fileSavePath = "";
 
@@ -260,7 +260,7 @@ namespace GroupDocs.Total.WebForms.Products.Editor.Controllers
                 string htmlContent = postedData.getContent(); // Initialize with HTML markup of the edited document
                 string guid = postedData.GetGuid();
                 string password = postedData.getPassword();
-                string saveFilePath = Path.Combine(globalConfiguration.GetEditorConfiguration().GetFilesDirectory(), guid);
+                string saveFilePath = Path.Combine(GlobalConfiguration.GetEditorConfiguration().GetFilesDirectory(), guid);
                 string tempFilename = Path.GetFileNameWithoutExtension(saveFilePath) + "_tmp";
                 string tempPath = Path.Combine(Path.GetDirectoryName(saveFilePath), tempFilename + Path.GetExtension(saveFilePath));
 
@@ -271,7 +271,7 @@ namespace GroupDocs.Total.WebForms.Products.Editor.Controllers
                 }
 
                 // Instantiate Editor object by loading the input file
-                using (GroupDocs.Editor.Editor editor = new GroupDocs.Editor.Editor(guid, delegate { return loadOptions; }))
+                using (GroupDocs.Editor.Editor editor = new GroupDocs.Editor.Editor(guid, loadOptions))
                 {
                     EditableDocument htmlContentDoc = EditableDocument.FromMarkup(htmlContent, null);
                     dynamic saveOptions = GetSaveOptions(guid);
@@ -324,7 +324,7 @@ namespace GroupDocs.Total.WebForms.Products.Editor.Controllers
             {
                 string htmlContent = postedData.getContent();
                 string guid = postedData.GetGuid();
-                string saveFilePath = Path.Combine(globalConfiguration.GetEditorConfiguration().GetFilesDirectory(), guid);
+                string saveFilePath = Path.Combine(GlobalConfiguration.GetEditorConfiguration().GetFilesDirectory(), guid);
                 string tempFilename = Path.GetFileNameWithoutExtension(saveFilePath) + "_tmp";
                 string tempPath = Path.Combine(Path.GetDirectoryName(saveFilePath), tempFilename + Path.GetExtension(saveFilePath));
 
@@ -626,7 +626,7 @@ namespace GroupDocs.Total.WebForms.Products.Editor.Controllers
             }
 
             // Instantiate Editor object by loading the input file
-            using (GroupDocs.Editor.Editor editor = new GroupDocs.Editor.Editor(guid, delegate { return loadOptions; }))
+            using (GroupDocs.Editor.Editor editor = new GroupDocs.Editor.Editor(guid, loadOptions))
             {
                 IDocumentInfo documentInfo = editor.GetDocumentInfo(password);
 

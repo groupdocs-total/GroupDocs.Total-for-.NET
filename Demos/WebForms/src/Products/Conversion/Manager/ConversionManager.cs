@@ -36,7 +36,8 @@ namespace GroupDocs.Total.WebForms.Products.Conversion.Manager
                         outputFileTemplate = Path.Combine(filesDirectory, fileNameWoExt + "." + destinationType);
                     }
 
-                    Func<int, Stream> getPageStream = page => new FileStream(string.Format(outputFileTemplate, page), FileMode.Create);
+                    Func<SavePageContext, Stream> getPageStream = 
+                        ctx => new FileStream(string.Format(outputFileTemplate, ctx.Page), FileMode.Create);
                     converter.Convert(getPageStream, convertOptions);
                 }
                 else

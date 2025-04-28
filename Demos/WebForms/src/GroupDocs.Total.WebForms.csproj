@@ -46,8 +46,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GroupDocs.Total, Version=25.2.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <HintPath>..\packages\GroupDocs.Total.NETFramework.25.2.0\lib\net462\GroupDocs.Total.dll</HintPath>
+    <Reference Include="GroupDocs.Total, Version=25.3.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\packages\GroupDocs.Total.NETFramework.25.3.0\lib\net462\GroupDocs.Total.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -230,6 +230,7 @@
   <ItemGroup>
     <Content Include="Comparison.aspx" />
     <Content Include="Annotation.aspx" />
+    <Content Include="DocumentSamples\Viewer\infographic-elements.tiff" />
     <Content Include="Search.aspx" />
     <Content Include="Signature.aspx" />
     <Content Include="Total.aspx" />
@@ -240,6 +241,13 @@
     <Content Include="Viewer.aspx" />
     <Content Include="Web.config" />
     <Content Include="packages.config" />
+    <Content Include="DocumentSamples\Viewer\annual-review.docx" />
+    <Content Include="DocumentSamples\Viewer\basic-presentation.pptx" />
+    <Content Include="DocumentSamples\Viewer\compressed.zip" />
+    <Content Include="DocumentSamples\Viewer\cost-analysis.xlsx" />
+    <Content Include="DocumentSamples\Viewer\invitation.eml" />
+    <Content Include="DocumentSamples\Viewer\password-is-12345.docx" />
+    <Content Include="DocumentSamples\Viewer\professional-services.pdf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -472,6 +480,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DocumentSamples\Annotation\" />
+    <Folder Include="DocumentSamples\Comparison\Compared\" />
+    <Folder Include="DocumentSamples\Conversion\Converted\" />
+    <Folder Include="DocumentSamples\Editor\" />
+    <Folder Include="DocumentSamples\Metadata\" />
+    <Folder Include="DocumentSamples\Search\Indexed\" />
+    <Folder Include="DocumentSamples\Search\Index\" />
+    <Folder Include="DocumentSamples\Signature\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <PropertyGroup>

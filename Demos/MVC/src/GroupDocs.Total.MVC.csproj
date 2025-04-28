@@ -49,8 +49,8 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="GroupDocs.Total, Version=25.2.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <HintPath>..\packages\GroupDocs.Total.NETFramework.25.2.0\lib\net462\GroupDocs.Total.dll</HintPath>
+    <Reference Include="GroupDocs.Total, Version=25.3.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\packages\GroupDocs.Total.NETFramework.25.3.0\lib\net462\GroupDocs.Total.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -415,6 +415,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DocumentSamples\Viewer\infographic-elements.tiff" />
     <Content Include="Global.asax" />
     <Content Include="Mono.Security.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -441,6 +442,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DocumentSamples\Annotation\" />
+    <Folder Include="DocumentSamples\Comparison\Compared\" />
+    <Folder Include="DocumentSamples\Conversion\Converted\" />
+    <Folder Include="DocumentSamples\Editor\" />
+    <Folder Include="DocumentSamples\Metadata\Output\" />
+    <Folder Include="DocumentSamples\Metadata\Temp\" />
+    <Folder Include="DocumentSamples\Search\Indexed\" />
+    <Folder Include="DocumentSamples\Search\Index\" />
+    <Folder Include="DocumentSamples\Signature\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
@@ -472,6 +482,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Search\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DocumentSamples\Viewer\annual-review.docx" />
+    <Content Include="DocumentSamples\Viewer\basic-presentation.pptx" />
+    <Content Include="DocumentSamples\Viewer\compressed.zip" />
+    <Content Include="DocumentSamples\Viewer\cost-analysis.xlsx" />
+    <Content Include="DocumentSamples\Viewer\invitation.eml" />
+    <Content Include="DocumentSamples\Viewer\password-is-12345.docx" />
+    <Content Include="DocumentSamples\Viewer\professional-services.pdf" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

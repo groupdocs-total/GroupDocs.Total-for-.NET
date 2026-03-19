@@ -1,5 +1,4 @@
 ﻿using GroupDocs.Total.WebForms.Products.Common.Config;
-using GroupDocs.Total.WebForms.Products.Common.Util.Parser;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -13,10 +12,10 @@ namespace GroupDocs.Total.WebForms.Products.Comparison.Config
     public class ComparisonConfiguration : CommonConfiguration
     {
         [JsonProperty]
-        private string filesDirectory = "DocumentSamples/Comparison";
+        private string filesDirectory = "Files/Comparison";
 
         [JsonProperty]
-        private string resultDirectory = "DocumentSamples/Comparison/Compared";
+        private string resultDirectory = "Files/Comparison/Compared";
 
         [JsonProperty]
         private int preloadResultPageCount;
@@ -26,9 +25,7 @@ namespace GroupDocs.Total.WebForms.Products.Comparison.Config
         /// </summary>
         public ComparisonConfiguration()
         {
-            YamlParser parser = new YamlParser();
-            dynamic configuration = parser.GetConfiguration("comparison");
-            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter(configuration);
+            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter("comparison");
             // get Comparison configuration section from the web.config            
             filesDirectory = valuesGetter.GetStringPropertyValue("filesDirectory", filesDirectory);
             if (!IsFullPath(filesDirectory))

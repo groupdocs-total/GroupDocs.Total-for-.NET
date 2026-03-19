@@ -1,4 +1,3 @@
-﻿using GroupDocs.Total.WebForms.Products.Common.Util.Parser;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -19,14 +18,23 @@ namespace GroupDocs.Total.WebForms.Products.Common.Config
         /// </summary>
         public ApplicationConfiguration()
         {
-            YamlParser parser = new YamlParser();
-            dynamic configuration = parser.GetConfiguration("application");
-            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter(configuration);
+            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter("application");
             string license = valuesGetter.GetStringPropertyValue("licensePath");
             if (string.IsNullOrEmpty(license))
             {
-                string[] files = System.IO.Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.licensePath), "*.lic");
-                this.licensePath = Path.Combine(this.licensePath, files[0]);
+                string licensesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.licensePath);
+                if (Directory.Exists(licensesDir))
+                {
+                    string[] files = Directory.GetFiles(licensesDir, "*.lic");
+                    if (files.Length > 0)
+                    {
+                        this.licensePath = files[0];
+                        return;
+                    }
+                }
+
+                Debug.WriteLine("No license file found, launched in trial mode");
+                this.licensePath = string.Empty;
             }
             else
             {

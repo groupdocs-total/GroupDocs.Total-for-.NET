@@ -1,70 +1,63 @@
-# GroupDocs.Total for .NET
+# GroupDocs.Total for .NET Demo Projects
 
 [![NuGet](https://img.shields.io/nuget/v/GroupDocs.Total)](https://www.nuget.org/packages/GroupDocs.Total/)
 ![Downloads](https://img.shields.io/nuget/dt/GroupDocs.Total?label=nuget%20downloads)
 
-GroupDocs.Total for .NET is a comprehensive suite of document management APIs for .NET developers. It provides a wide range of functionalities to view, annotate, convert, compare, sign, assemble, and redact documents seamlessly within .NET applications.
+This repository contains demo web applications built with [GroupDocs.Total for .NET](https://products.groupdocs.com/total/net/) — a comprehensive suite of document management APIs. The demos showcase document viewing, annotation, conversion, comparison, digital signatures, editing, metadata management, and full-text search.
 
-## Features
+## Demo Applications
 
-- **Document Viewing**: Render and display over 50 document formats including PDF, Microsoft Office, and images.
-- **Annotation**: Add, remove, and manage annotations in various document formats.
-- **Conversion**: Convert documents from one format to another with high fidelity.
-- **Comparison**: Compare documents to highlight changes and differences.
-- **e-Signature**: Integrate electronic signature capabilities into your applications.
-- **Assembly**: Automate the generation of documents by merging templates with data.
-- **Redaction**: Redact sensitive information from documents securely.
+| Demo | Framework | Path |
+|---|---|---|
+| [MVC](Demos/MVC) | ASP.NET MVC 5 | `Demos/MVC` |
+| [WebForms](Demos/WebForms) | ASP.NET WebForms | `Demos/WebForms` |
 
-## Supported Formats
+## System Requirements
 
-GroupDocs.Total for .NET supports a wide range of document formats, including but not limited to:
-- **PDF**: PDF, PDF/A
-- **Microsoft Office**: Word, Excel, PowerPoint, Visio, OneNote
-- **Images**: JPEG, PNG, BMP, TIFF, GIF
-- **Others**: HTML, TXT, RTF, XML, EPUB, and many more.
+- .NET Framework 4.8
+- Visual Studio 2022 or later
 
-## Getting Started
+## Quick Start
 
-To get started with GroupDocs.Total for .NET, follow these steps:
+```bash
+git clone https://github.com/groupdocs-total/GroupDocs.Total-for-.NET
+```
 
-1. **Install via NuGet**:
-    ```sh
-    Install-Package GroupDocs.Total
-    ```
+1. Open the solution for your preferred framework in Visual Studio
+2. Build and run
+3. Open http://localhost:8080/
 
-2. **Add Namespaces of used GroupDocs product**:
-    ```csharp
-    using GroupDocs.Conversion;
-    using GroupDocs.Viewer;
-    ```
+**Note:** Without a license the applications run in trial mode. You can [request a temporary license](https://purchase.groupdocs.com/temporary-license).
 
-3. **Example Usage**:
-    ```csharp
-    // Example code to load a document and convert it to PDF
-    var converter = new GroupDocs.Conversion.Converter("sample.docx");
-    var convertOptions = new GroupDocs.Conversion.Options.Convert.PdfConvertOptions();
-    converter.Convert("output.pdf", convertOptions);
-    ```
+## Configuration
 
-## Documentation
+Both apps use `appSettings` in `Web.config` for configuration. All settings have sensible defaults — no configuration is required to run.
 
-Comprehensive documentation for GroupDocs.Total for .NET is available at the [GroupDocs Documentation](https://docs.groupdocs.com/total/net/).
+To override a setting, add a key to `<appSettings>` using the `section:property` format:
 
-## Support
+```xml
+<appSettings>
+  <add key="viewer:filesDirectory" value="C:\MyFiles\Viewer" />
+  <add key="viewer:htmlMode" value="false" />
+</appSettings>
+```
 
-If you encounter any issues or have any questions, please reach out to us via the following channels:
-- [GitHub Issues](https://github.com/groupdocs-total/GroupDocs.Total-for-.NET/issues)
-- [Free Support Forum](https://forum.groupdocs.com/)
-- [Paid Support Helpdesk](https://helpdesk.groupdocs.com/)
+License files are loaded from the `Licenses/` folder by default. Override with:
+
+```xml
+<add key="application:licensePath" value="C:\path\to\license.lic" />
+```
+
+## Resources
+
+- **Product Home:** [GroupDocs.Total for .NET](https://products.groupdocs.com/total/net/)
+- **Documentation:** [GroupDocs.Total Documentation](https://docs.groupdocs.com/total/)
+- **API References:** [GroupDocs API](https://apireference.groupdocs.com)
+- **Download:** [NuGet Package](https://releases.groupdocs.com/total/net/)
+- **Free Support:** [Forum](https://forum.groupdocs.com/c/total)
+- **Paid Support:** [Helpdesk](https://helpdesk.groupdocs.com)
+- **Blog:** [GroupDocs.Total Blog](https://blog.groupdocs.com/category/groupdocs-total-product-family)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contributing
-
-We welcome contributions to the GroupDocs.Total for .NET repository. 
-
-## About GroupDocs
-
-GroupDocs is a leading provider of document management solutions for developers. Our APIs are designed to make document automation processes seamless and efficient. For more information, visit [our website](https://www.groupdocs.com/).
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.

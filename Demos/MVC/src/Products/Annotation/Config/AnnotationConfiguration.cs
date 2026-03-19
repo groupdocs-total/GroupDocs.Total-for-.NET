@@ -1,5 +1,4 @@
 ﻿using GroupDocs.Total.MVC.Products.Common.Config;
-using GroupDocs.Total.MVC.Products.Common.Util.Parser;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -13,7 +12,7 @@ namespace GroupDocs.Total.MVC.Products.Annotation.Config
     public class AnnotationConfiguration : CommonConfiguration
     {
         [JsonProperty]
-        private readonly string filesDirectory = "DocumentSamples/Annotation";
+        private readonly string filesDirectory = "Files/Annotation";
 
         [JsonProperty]
         private readonly string defaultDocument = "";
@@ -74,9 +73,7 @@ namespace GroupDocs.Total.MVC.Products.Annotation.Config
         /// </summary>
         public AnnotationConfiguration()
         {
-            YamlParser parser = new YamlParser();
-            dynamic configuration = parser.GetConfiguration("annotation");
-            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter(configuration);
+            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter("annotation");
 
             filesDirectory = valuesGetter.GetStringPropertyValue("filesDirectory", filesDirectory);
             if (!IsFullPath(filesDirectory))

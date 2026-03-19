@@ -1,5 +1,4 @@
 ﻿using GroupDocs.Total.MVC.Products.Common.Config;
-using GroupDocs.Total.MVC.Products.Common.Util.Parser;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -13,7 +12,7 @@ namespace GroupDocs.Total.MVC.Products.Signature.Config
     public class SignatureConfiguration : CommonConfiguration
     {
         [JsonProperty]
-        private string filesDirectory = "DocumentSamples/Signature";
+        private string filesDirectory = "Files/Signature";
 
         [JsonProperty]
         private readonly string defaultDocument = "";
@@ -62,9 +61,7 @@ namespace GroupDocs.Total.MVC.Products.Signature.Config
         /// </summary>
         public SignatureConfiguration()
         {
-            YamlParser parser = new YamlParser();
-            dynamic configuration = parser.GetConfiguration("signature");
-            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter(configuration);
+            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter("signature");
 
             filesDirectory = valuesGetter.GetStringPropertyValue("filesDirectory", filesDirectory);
             if (!IsFullPath(filesDirectory))

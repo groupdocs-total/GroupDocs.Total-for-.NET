@@ -1,5 +1,4 @@
 ﻿using GroupDocs.Total.MVC.Products.Common.Config;
-using GroupDocs.Total.MVC.Products.Common.Util.Parser;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -11,11 +10,11 @@ namespace GroupDocs.Total.MVC.Products.Metadata.Config
     /// </summary>
     public class MetadataConfiguration : CommonConfiguration
     {
-        private string filesDirectory = "DocumentSamples/Metadata";
+        private string filesDirectory = "Files/Metadata";
 
-        private readonly string outputDirectory = "DocumentSamples/Metadata/Output";
+        private readonly string outputDirectory = "Files/Metadata/Output";
 
-        private readonly string tempDirectory = "DocumentSamples/Metadata/Temp";
+        private readonly string tempDirectory = "Files/Metadata/Temp";
 
         private readonly int fileOperationTimeout;
 
@@ -40,9 +39,7 @@ namespace GroupDocs.Total.MVC.Products.Metadata.Config
         /// </summary>
         public MetadataConfiguration()
         {
-            YamlParser parser = new YamlParser();
-            dynamic configuration = parser.GetConfiguration("metadata");
-            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter(configuration);
+            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter("metadata");
 
             // get Metadata configuration section from the web.config
             filesDirectory = valuesGetter.GetStringPropertyValue("filesDirectory", filesDirectory);

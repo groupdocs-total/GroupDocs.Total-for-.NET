@@ -1,0 +1,30 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Signature.aspx.cs" Inherits="GroupDocs.Total.WebForms.Signature" %>
+
+<%
+    GroupDocs.Total.WebForms.Products.Common.Config.GlobalConfiguration config = new GroupDocs.Total.WebForms.Products.Common.Config.GlobalConfiguration();
+%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <title>Signature for .NET WebForms</title>
+    <link rel="icon" type="image/x-icon" href="/client/signature/favicon.ico" />
+</head>
+<body>
+    <client-root></client-root>
+    <script src="/client/signature/polyfills-es2015.js" type="module"></script>
+    <script src="/client/signature/polyfills-es5.js" nomodule></script>
+    <script src="/client/signature/runtime-es2015.js" type="module"></script>
+    <script src="/client/signature/runtime-es5.js" nomodule></script>
+    <script src="/client/signature/styles-es2015.js" type="module"></script>
+    <script src="/client/signature/styles-es5.js" nomodule></script>
+    <script src="/client/signature/vendor-es2015.js" type="module"></script>
+    <script src="/client/signature/vendor-es5.js" nomodule></script>
+    <script src="/client/signature/main-es2015.js" type="module"></script>
+    <script src="/client/signature/main-es5.js" nomodule></script>
+    <script src="/client/signature/styles-es2015.js" type="module"></script>
+    <script src="/client/signature/styles-es5.js" nomodule></script>
+</body>
+</html>
+

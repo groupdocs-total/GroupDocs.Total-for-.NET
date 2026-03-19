@@ -1,33 +1,25 @@
-﻿using GroupDocs.Total.WebForms.Products.Common.Util.Parser;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Specialized;
-using System.Configuration;
 
 namespace GroupDocs.Total.WebForms.Products.Common.Config
 {
     /// <summary>
     /// CommonConfiguration.
     /// </summary>
-    public class CommonConfiguration : ConfigurationSection
+    public class CommonConfiguration
     {
-        private readonly NameValueCollection commonConfiguration = (NameValueCollection)System.Configuration.ConfigurationManager.GetSection("commonConfiguration");
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CommonConfiguration"/> class.
         /// </summary>
         public CommonConfiguration()
         {
-            YamlParser parser = new YamlParser();
-            dynamic configuration = parser.GetConfiguration("common");
-            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter(configuration);
-            this.pageSelector = valuesGetter.GetBooleanPropertyValue("pageSelector", Convert.ToBoolean(this.commonConfiguration["isPageSelector"]));
-            this.download = valuesGetter.GetBooleanPropertyValue("download", Convert.ToBoolean(this.commonConfiguration["isDownload"]));
-            this.upload = valuesGetter.GetBooleanPropertyValue("upload", Convert.ToBoolean(this.commonConfiguration["isUpload"]));
-            this.print = valuesGetter.GetBooleanPropertyValue("print", Convert.ToBoolean(this.commonConfiguration["isPrint"]));
-            this.browse = valuesGetter.GetBooleanPropertyValue("browse", Convert.ToBoolean(this.commonConfiguration["isBrowse"]));
-            this.rewrite = valuesGetter.GetBooleanPropertyValue("rewrite", Convert.ToBoolean(this.commonConfiguration["isRewrite"]));
-            this.enableRightClick = valuesGetter.GetBooleanPropertyValue("enableRightClick", Convert.ToBoolean(this.commonConfiguration["enableRightClick"]));
+            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter("common");
+            this.pageSelector = valuesGetter.GetBooleanPropertyValue("pageSelector", true);
+            this.download = valuesGetter.GetBooleanPropertyValue("download", true);
+            this.upload = valuesGetter.GetBooleanPropertyValue("upload", true);
+            this.print = valuesGetter.GetBooleanPropertyValue("print", true);
+            this.browse = valuesGetter.GetBooleanPropertyValue("browse", true);
+            this.rewrite = valuesGetter.GetBooleanPropertyValue("rewrite", true);
+            this.enableRightClick = valuesGetter.GetBooleanPropertyValue("enableRightClick", true);
         }
 
         [JsonProperty]

@@ -1,5 +1,4 @@
 ﻿using GroupDocs.Total.MVC.Products.Common.Config;
-using GroupDocs.Total.MVC.Products.Common.Util.Parser;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -13,7 +12,7 @@ namespace GroupDocs.Total.MVC.Products.Viewer.Config
     public class ViewerConfiguration : CommonConfiguration
     {
         [JsonProperty]
-        private string filesDirectory = "DocumentSamples/Viewer";
+        private string filesDirectory = "Files/Viewer";
 
         [JsonProperty]
         private string fontsDirectory = string.Empty;
@@ -62,9 +61,7 @@ namespace GroupDocs.Total.MVC.Products.Viewer.Config
         /// </summary>
         public ViewerConfiguration()
         {
-            YamlParser parser = new YamlParser();
-            dynamic configuration = parser.GetConfiguration("viewer");
-            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter(configuration);
+            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter("viewer");
 
             // get Viewer configuration section from the web.config
             this.filesDirectory = valuesGetter.GetStringPropertyValue("filesDirectory", this.filesDirectory);

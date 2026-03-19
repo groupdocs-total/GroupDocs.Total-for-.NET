@@ -1,60 +1,48 @@
-﻿using System;
+using System;
+using System.Configuration;
 
 namespace GroupDocs.Total.WebForms.Products.Common.Config
 {
     public class ConfigurationValuesGetter
     {
-        private readonly dynamic configuration;
+        private readonly string prefix;
 
-        public ConfigurationValuesGetter(dynamic configuration)
+        public ConfigurationValuesGetter(string sectionName)
         {
-            this.configuration = configuration;
+            this.prefix = sectionName + ":";
         }
 
         public string GetStringPropertyValue(string propertyName)
         {
-            return (this.configuration != null && this.configuration[propertyName] != null && !string.IsNullOrEmpty(this.configuration[propertyName].ToString())) ?
-                this.configuration[propertyName].ToString() :
-                null;
+            var value = ConfigurationManager.AppSettings[prefix + propertyName];
+            return !string.IsNullOrEmpty(value) ? value : null;
         }
 
         public string GetStringPropertyValue(string propertyName, string defaultValue)
         {
-            return (this.configuration != null && this.configuration[propertyName] != null && !string.IsNullOrEmpty(this.configuration[propertyName].ToString())) ?
-                this.configuration[propertyName].ToString() :
-                defaultValue;
+            var value = ConfigurationManager.AppSettings[prefix + propertyName];
+            return !string.IsNullOrEmpty(value) ? value : defaultValue;
         }
 
         public int GetIntegerPropertyValue(string propertyName, int defaultValue)
         {
-            int value;
-            value = (this.configuration != null && this.configuration[propertyName] != null && !string.IsNullOrEmpty(this.configuration[propertyName].ToString())) ?
-                Convert.ToInt32(this.configuration[propertyName]) :
-                defaultValue;
-            return value;
+            var value = ConfigurationManager.AppSettings[prefix + propertyName];
+            return !string.IsNullOrEmpty(value) ? Convert.ToInt32(value) : defaultValue;
         }
 
         public int GetIntegerPropertyValue(string propertyName, int defaultValue, string innerPropertyName)
         {
-            int value;
-            if (!string.IsNullOrEmpty(innerPropertyName))
-            {
-                value = (this.configuration != null && this.configuration[propertyName] != null && !string.IsNullOrEmpty(this.configuration[propertyName][innerPropertyName].ToString())) ?
-                    Convert.ToInt32(this.configuration[propertyName][innerPropertyName]) :
-                    defaultValue;
-            }
-            else
-            {
-                value = (this.configuration != null && this.configuration[propertyName] != null && !string.IsNullOrEmpty(this.configuration[propertyName].ToString())) ?
-                    Convert.ToInt32(this.configuration[propertyName]) :
-                    defaultValue;
-            }
-            return value;
+            var key = !string.IsNullOrEmpty(innerPropertyName)
+                ? prefix + propertyName + ":" + innerPropertyName
+                : prefix + propertyName;
+            var value = ConfigurationManager.AppSettings[key];
+            return !string.IsNullOrEmpty(value) ? Convert.ToInt32(value) : defaultValue;
         }
 
         public bool GetBooleanPropertyValue(string propertyName, bool defaultValue)
         {
-            return (this.configuration != null && this.configuration[propertyName] != null && !string.IsNullOrEmpty(this.configuration[propertyName].ToString())) ? Convert.ToBoolean(this.configuration[propertyName]) : defaultValue;
+            var value = ConfigurationManager.AppSettings[prefix + propertyName];
+            return !string.IsNullOrEmpty(value) ? Convert.ToBoolean(value) : defaultValue;
         }
     }
 }

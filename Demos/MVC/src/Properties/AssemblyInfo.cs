@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Aspose Pty Ltd")]
 [assembly: AssemblyProduct("GroupDocs.Total MVC")]
-[assembly: AssemblyCopyright("2001-2018 Aspose Pty Ltd")]
+[assembly: AssemblyCopyright("2001-2026 Aspose Pty Ltd")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.5.1.0")]
-[assembly: AssemblyFileVersion("0.5.1.0")]
+[assembly: AssemblyVersion("26.3.0.0")]
+[assembly: AssemblyFileVersion("26.3.0.0")]

@@ -1,5 +1,4 @@
 ﻿using GroupDocs.Total.WebForms.Products.Common.Config;
-using GroupDocs.Total.WebForms.Products.Common.Util.Parser;
 using GroupDocs.Total.WebForms.Products.Metadata.Util;
 using Newtonsoft.Json;
 using System;
@@ -12,7 +11,7 @@ namespace GroupDocs.Total.WebForms.Products.Metadata.Config
     /// </summary>
     public class MetadataConfiguration : CommonConfiguration
     {
-        private string filesDirectory = "DocumentSamples/Metadata";
+        private string filesDirectory = "Files/Metadata";
 
         [JsonProperty]
         private string defaultDocument = "";
@@ -31,9 +30,7 @@ namespace GroupDocs.Total.WebForms.Products.Metadata.Config
         /// </summary>
         public MetadataConfiguration()
         {
-            YamlParser parser = new YamlParser();
-            dynamic configuration = parser.GetConfiguration("metadata");
-            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter(configuration);
+            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter("metadata");
 
             // get Metadata configuration section from the web.config
             filesDirectory = valuesGetter.GetStringPropertyValue("filesDirectory", filesDirectory);

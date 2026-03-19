@@ -1,5 +1,4 @@
 ﻿using GroupDocs.Total.WebForms.Products.Common.Config;
-using GroupDocs.Total.WebForms.Products.Common.Util.Parser;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -13,7 +12,7 @@ namespace GroupDocs.Total.WebForms.Products.Editor.Config
     public class EditorConfiguration : CommonConfiguration
     {
         [JsonProperty]
-        private string filesDirectory = "DocumentSamples/Editor";
+        private string filesDirectory = "Files/Editor";
 
         [JsonProperty]
         private string fontsDirectory = "";
@@ -29,9 +28,7 @@ namespace GroupDocs.Total.WebForms.Products.Editor.Config
         /// </summary>
         public EditorConfiguration()
         {
-            YamlParser parser = new YamlParser();
-            dynamic configuration = parser.GetConfiguration("editor");
-            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter(configuration);
+            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter("editor");
 
             // get Viewer configuration section from the web.config
             filesDirectory = valuesGetter.GetStringPropertyValue("filesDirectory", filesDirectory);

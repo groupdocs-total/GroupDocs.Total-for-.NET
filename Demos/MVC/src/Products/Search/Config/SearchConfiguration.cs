@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using GroupDocs.Total.MVC.Products.Common.Config;
-using GroupDocs.Total.MVC.Products.Common.Util.Parser;
 using GroupDocs.Total.MVC.Products.Search.Util.Directory;
 using Newtonsoft.Json;
 
@@ -13,13 +12,13 @@ namespace GroupDocs.Total.MVC.Products.Search.Config
     public class SearchConfiguration : CommonConfiguration
     {
         [JsonProperty]
-        private string filesDirectory = "DocumentSamples/Search";
+        private string filesDirectory = "Files/Search";
 
         [JsonProperty]
-        private string indexDirectory = "DocumentSamples/Search/Index";
+        private string indexDirectory = "Files/Search/Index";
 
         [JsonProperty]
-        private string indexedFilesDirectory = "DocumentSamples/Search/Indexed";
+        private string indexedFilesDirectory = "Files/Search/Indexed";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchConfiguration"/> class.
@@ -27,11 +26,8 @@ namespace GroupDocs.Total.MVC.Products.Search.Config
         /// </summary>
         public SearchConfiguration()
         {
-            YamlParser parser = new YamlParser();
-
             // get Search configuration section from the web.config
-            dynamic configuration = parser.GetConfiguration("search");
-            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter(configuration);
+            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter("search");
 
             this.filesDirectory = valuesGetter.GetStringPropertyValue("filesDirectory", this.filesDirectory);
             if (!DirectoryUtils.IsFullPath(this.filesDirectory))

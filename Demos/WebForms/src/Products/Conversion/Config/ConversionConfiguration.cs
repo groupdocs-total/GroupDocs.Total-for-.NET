@@ -1,5 +1,4 @@
 ﻿using GroupDocs.Total.WebForms.Products.Common.Config;
-using GroupDocs.Total.WebForms.Products.Common.Util.Parser;
 using System;
 using System.IO;
 using System.Linq;
@@ -11,17 +10,15 @@ namespace GroupDocs.Total.WebForms.Products.Conversion.Config
     /// </summary>
     public class ConversionConfiguration : CommonConfiguration
     {
-        private string FilesDirectory = "DocumentSamples/Conversion";
-        private string ResultDirectory = "DocumentSamples/Conversion/Converted";
+        private string FilesDirectory = "Files/Conversion";
+        private string ResultDirectory = "Files/Conversion/Converted";
 
         /// <summary>
         /// Constructor
         /// </summary>
         public ConversionConfiguration()
         {
-            YamlParser parser = new YamlParser();
-            dynamic configuration = parser.GetConfiguration("conversion");
-            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter(configuration);
+            ConfigurationValuesGetter valuesGetter = new ConfigurationValuesGetter("conversion");
 
             // get Viewer configuration section from the web.config
             FilesDirectory = valuesGetter.GetStringPropertyValue("filesDirectory", FilesDirectory);

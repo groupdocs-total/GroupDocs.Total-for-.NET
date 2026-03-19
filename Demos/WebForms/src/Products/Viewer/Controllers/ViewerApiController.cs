@@ -65,7 +65,7 @@ namespace GroupDocs.Total.WebForms.Products.Viewer.Controllers
 
         /// <summary>
         /// Gets all files and directories from sample directory:
-        /// src/DocumentSamples/Viewer/.
+        /// src/Files/Viewer/.
         /// </summary>
         /// <returns>List of files and directories.</returns>
         [HttpPost]

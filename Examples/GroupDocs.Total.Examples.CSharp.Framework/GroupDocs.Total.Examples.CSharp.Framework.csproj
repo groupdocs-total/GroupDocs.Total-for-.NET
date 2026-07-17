@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net462</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>annotations</Nullable>
+    <RootNamespace>GroupDocs.Total.Examples.CSharp.Framework</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="GroupDocs.Total.NETFramework" Version="26.6.0" />
+    <!-- Required for tuple deconstruction on net462 (not in the BCL). Must be >= what GroupDocs.Total.NETFramework itself requires, or NuGet reports a downgrade (NU1605). -->
+    <PackageReference Include="System.ValueTuple" Version="4.6.1" />
+  </ItemGroup>
+  <Import Project="..\GroupDocs.Total.Examples.CSharp\GroupDocs.Total.Examples.CSharp.projitems" Label="Shared" />
+  <ItemGroup>
+    <Content Include="..\GroupDocs.Total.Examples.CSharp\**\*.docx;..\GroupDocs.Total.Examples.CSharp\**\*.doc;..\GroupDocs.Total.Examples.CSharp\**\*.pdf;..\GroupDocs.Total.Examples.CSharp\**\*.xlsx;..\GroupDocs.Total.Examples.CSharp\**\*.xls;..\GroupDocs.Total.Examples.CSharp\**\*.pptx;..\GroupDocs.Total.Examples.CSharp\**\*.ppt;..\GroupDocs.Total.Examples.CSharp\**\*.epub;..\GroupDocs.Total.Examples.CSharp\**\*.xml;..\GroupDocs.Total.Examples.CSharp\**\*.png;..\GroupDocs.Total.Examples.CSharp\**\*.jpg;..\GroupDocs.Total.Examples.CSharp\**\*.jpeg;..\GroupDocs.Total.Examples.CSharp\**\*.txt;..\GroupDocs.Total.Examples.CSharp\**\*.html;..\GroupDocs.Total.Examples.CSharp\**\*.htm;..\GroupDocs.Total.Examples.CSharp\**\*.csv;..\GroupDocs.Total.Examples.CSharp\**\*.msg;..\GroupDocs.Total.Examples.CSharp\**\*.eml;..\GroupDocs.Total.Examples.CSharp\**\*.zip;..\GroupDocs.Total.Examples.CSharp\**\*.odt;..\GroupDocs.Total.Examples.CSharp\**\*.ods;..\GroupDocs.Total.Examples.CSharp\**\*.odp;..\GroupDocs.Total.Examples.CSharp\**\*.rtf;..\GroupDocs.Total.Examples.CSharp\**\*.vsdx"
+             Exclude="..\GroupDocs.Total.Examples.CSharp\**/documents\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>%(Filename)%(Extension)</Link>
+    </Content>
+    <!-- Keep documents/ directory structure for batch examples -->
+    <Content Include="..\GroupDocs.Total.Examples.CSharp\**/documents\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>documents\%(Filename)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,34 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "GroupDocs.Total.Examples.CSharp", "GroupDocs.Total.Examples.CSharp\GroupDocs.Total.Examples.CSharp.shproj", "{21E4BFB5-0D7A-5832-A849-CEF74BEE7BAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupDocs.Total.Examples.CSharp.Net", "GroupDocs.Total.Examples.CSharp.Net\GroupDocs.Total.Examples.CSharp.Net.csproj", "{0E547E1E-4ABC-5EBE-85F8-C17B7704C96D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupDocs.Total.Examples.CSharp.Framework", "GroupDocs.Total.Examples.CSharp.Framework\GroupDocs.Total.Examples.CSharp.Framework.csproj", "{D1551404-C87F-5AF2-A0BA-BDAFCE798B4B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E547E1E-4ABC-5EBE-85F8-C17B7704C96D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E547E1E-4ABC-5EBE-85F8-C17B7704C96D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E547E1E-4ABC-5EBE-85F8-C17B7704C96D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E547E1E-4ABC-5EBE-85F8-C17B7704C96D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1551404-C87F-5AF2-A0BA-BDAFCE798B4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1551404-C87F-5AF2-A0BA-BDAFCE798B4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1551404-C87F-5AF2-A0BA-BDAFCE798B4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1551404-C87F-5AF2-A0BA-BDAFCE798B4B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		GroupDocs.Total.Examples.CSharp\GroupDocs.Total.Examples.CSharp.projitems*{21e4bfb5-0d7a-5832-a849-cef74bee7bae}*SharedItemsImports = 13
+		GroupDocs.Total.Examples.CSharp\GroupDocs.Total.Examples.CSharp.projitems*{0e547e1e-4abc-5ebe-85f8-c17b7704c96d}*SharedItemsImports = 5
+		GroupDocs.Total.Examples.CSharp\GroupDocs.Total.Examples.CSharp.projitems*{d1551404-c87f-5af2-a0ba-bdafce798b4b}*SharedItemsImports = 5
+	EndGlobalSection
+EndGlobal

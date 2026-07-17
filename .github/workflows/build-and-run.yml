@@ -1,0 +1,49 @@
+name: Build and Run Examples
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build-net:
+    name: .NET (net8.0)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore packages
+        run: dotnet restore Examples/GroupDocs.Total.Examples.CSharp.Net/GroupDocs.Total.Examples.CSharp.Net.csproj
+
+      - name: Build
+        run: dotnet build Examples/GroupDocs.Total.Examples.CSharp.Net/GroupDocs.Total.Examples.CSharp.Net.csproj --no-restore --configuration Release
+
+      - name: Run examples
+        run: dotnet run --project Examples/GroupDocs.Total.Examples.CSharp.Net/GroupDocs.Total.Examples.CSharp.Net.csproj --configuration Release --no-build
+
+  build-netfx:
+    name: .NET Framework (net462)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore packages
+        run: dotnet restore Examples/GroupDocs.Total.Examples.CSharp.Framework/GroupDocs.Total.Examples.CSharp.Framework.csproj
+
+      - name: Build
+        run: dotnet build Examples/GroupDocs.Total.Examples.CSharp.Framework/GroupDocs.Total.Examples.CSharp.Framework.csproj --no-restore --configuration Release
+
+      - name: Run examples
+        run: dotnet run --project Examples/GroupDocs.Total.Examples.CSharp.Framework/GroupDocs.Total.Examples.CSharp.Framework.csproj --configuration Release --no-build
